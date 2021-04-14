@@ -1,7 +1,7 @@
 package com.codetogether.openstudio.dto.auth;
 
 import com.codetogether.openstudio.domain.Member;
-import com.codetogether.openstudio.domain.Role;
+import com.codetogether.openstudio.config.auth.Role;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -68,11 +68,15 @@ public class OAuthAttributes {
     }
 
     public Member toEntity() {
+        Role role = Role.USER;
+        if ("seujeon@student.42seoul.kr".equals(email)) {
+            role = Role.ADMIN;
+        }
         return Member.builder()
                 .intraId(name)
                 .email(email)
                 .picture(picture)
-                .role(Role.USER)
+                .role(role)
                 .build();
     }
 }

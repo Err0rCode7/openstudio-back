@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor
-public class Reservation {
+public class Reservation extends BaseTimeEntity {
     @Id
     @GeneratedValue
     @Column(name = "reservation_id")

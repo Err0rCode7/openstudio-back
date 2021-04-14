@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Team {
+public class Team extends BaseTimeEntity {
 
     @Id
     @GeneratedValue

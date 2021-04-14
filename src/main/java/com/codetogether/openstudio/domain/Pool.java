@@ -1,5 +1,6 @@
 package com.codetogether.openstudio.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -9,12 +10,12 @@ import java.util.List;
 
 @Entity
 @Getter
-public class Pool {
+public class Pool extends BaseTimeEntity {
     @Id
     @GeneratedValue
     @Column(name = "pool_id")
     private Long id;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "subject_id")
     private Subject subject;
     private LocalDateTime closedAt;
@@ -25,7 +26,8 @@ public class Pool {
     public Pool() {
     }
 
-    public Pool(Subject subject, LocalDateTime createdAt, LocalDateTime closedAt) {
+    @Builder
+    public Pool(Subject subject, LocalDateTime closedAt) {
         this.subject = subject;
         this.closedAt = closedAt;
     }

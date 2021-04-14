@@ -25,17 +25,22 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation "org.springframework.boot:spring-boot-starter-mail"
+
 	implementation 'org.springframework.session:spring-session-jdbc'
+
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+
+	compile('org.springframework.boot:spring-boot-starter-mustache')
+
 	compileOnly 'org.projectlombok:lombok'
-	runtime('com.h2database:h2:1.4.197')
-//	compile('com.h2database:h2:1.4.197')
-//	runtimeOnly 'com.h2database:h2:1.4.197'
-//	runtimeOnly 'mysql:mysql-connector-java'
+	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'mysql:mysql-connector-java'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+
 }
 
 test {
