@@ -1,9 +1,8 @@
-{{>layout/header-subjects}}
-<h1>Admin Page - Subject</h1>
+{{>/layout/pools/header}}
+<h1>Admin Page - Pool</h1>
 <div class="col-md-12">
     <div class="row">
         <div class="col-md-8">
-            <a href="/admin/subjects/save" role="button" class="btn btn-primary">글 등록</a>
             {{#userName}}
                 Logged in as: <span id="user">{{userName}}</span>
                 <a href="/logout" class="btn btn-info active" role="button">Logout</a>
@@ -15,26 +14,23 @@
     <table class="table table-horizontal table-bordered">
         <thead class="thead-strong">
         <tr>
-            <th>서브젝트 번호</th>
+            <th>풀 번호</th>
             <th>서브젝트 이름</th>
-            <th>서브젝트 Pdf</th>
-            <th>Description</th>
-            <th>Circle</th>
-            <th>최종수정일</th>
+            <th>생성 날짜</th>
+            <th>마감 날짜</th>
         </tr>
         </thead>
         <tbody id="tbody">
-        {{#subjects}}
+        {{#pools}}
             <tr>
                 <td>{{id}}</td>
-                <td><a href="/admin/subjects/update/{{id}}">{{name}}</a></td>
-                <td>{{pdfRef}}</td>
-                <td>{{description}}</td>
-                <td>{{circle}}</td>
-                <td>{{modifiedAt}}</td>
+                <td><a href="/admin/pools/update/{{id}}">{{subject.name}}</a></td>
+                <td>{{createdAt}}</td>
+                <td>{{closedAt}}</td>
+                <td><button id="btn-delete" class="btn btn-info active" role="button">Delete</button></td>
             </tr>
-        {{/subjects}}
+        {{/pools}}
         </tbody>
     </table>
 </div>
-{{>layout/footer-subjects}}
+{{>/layout/pools/footer}}

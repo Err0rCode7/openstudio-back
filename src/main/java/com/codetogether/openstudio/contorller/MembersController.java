@@ -4,12 +4,14 @@ import com.codetogether.openstudio.config.auth.LoginUser;
 import com.codetogether.openstudio.config.auth.Role;
 import com.codetogether.openstudio.domain.Member;
 import com.codetogether.openstudio.dto.auth.SessionUser;
+import com.codetogether.openstudio.dto.member.MemberResponseDto;
+import com.codetogether.openstudio.dto.member.MemberSaveRequestDto;
+import com.codetogether.openstudio.dto.member.MemberUpdateRequestDto;
 import com.codetogether.openstudio.repository.MemberRepository;
+import com.codetogether.openstudio.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -19,22 +21,34 @@ import java.util.Optional;
 public class MembersController {
 
     private final MemberRepository memberRepository;
+    private final MemberService memberService;
 
-    @GetMapping("")
-    public Member getMember(@LoginUser SessionUser user) {
+    @GetMapping("/me")
+    public MemberResponseDto getMember(@LoginUser SessionUser user) {
         if (user != null) {
-            System.out.println("user.getEmail() = " + user.getEmail());
-            Optional<Member> newMember = memberRepository.findByEmail(user.getEmail());
-            if (newMember.isPresent()) {
-//                return newMember.get();
-                return Member.builder()
-                        .intraId("test")
-                        .picture(null)
-                        .email(null)
-                        .role(Role.USER)
-                        .build();
-            }
+            MemberResponseDto responseDto = memberService.findByEmail(user.getEmail());
+            return responseDto;
         }
-        return new Member();
+        return MemberResponseDto.builder()
+                .name(null)
+                .picture(null)
+                .email(null)
+                .build();
+    }
+
+    @PostMapping("")
+    public Long save(@RequestBody MemberSaveRequestDto requestDto) {
+        return memberService.save(requestDto);
+    }
+
+    @PutMapping("/{id}")
+    public Long update(@PathVariable Long id, @RequestBody MemberUpdateRequestDto requestDto) {
+        return memberService.update(id, requestDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public Long delete(@PathVariable Long id) {
+        memberService.delete(id);
+        return id;
     }
 }

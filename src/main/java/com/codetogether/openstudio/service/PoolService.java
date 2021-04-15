@@ -29,6 +29,15 @@ public class PoolService {
                 .collect(Collectors.toList());
     }
 
+    public List<PoolListResponseDto> findAllDesc() {
+        return poolRepository.findAllDesc().stream()
+                .map(PoolListResponseDto::new)
+                .collect(Collectors.toList());
+    }
 
-
+    public void deleteById(Long id) {
+        Pool pool = poolRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 풀입니다. + id" + id));
+        poolRepository.deleteById(id);
+    }
 }

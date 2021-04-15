@@ -73,7 +73,7 @@ public class OAuthAttributes {
             role = Role.ADMIN;
         }
         return Member.builder()
-                .intraId(name)
+                .name(name)
                 .email(email)
                 .picture(picture)
                 .role(role)

@@ -16,8 +16,8 @@ public class Member extends BaseTimeEntity {
     @Column(name = "member_id")
     private Long id;
 
-    @Column(unique = true)
-    private String intraId;
+    @Column(unique = true, name = "intra_id")
+    private String name;
 
     @Column(unique = true)
     private String email;
@@ -28,8 +28,8 @@ public class Member extends BaseTimeEntity {
     private Role role;
 
     @Builder
-    public Member(String intraId, String email, String picture, Role role) {
-        this.intraId = intraId;
+    public Member(String name, String email, String picture, Role role) {
+        this.name = name;
         this.email = email;
         this.picture = picture;
         this.role = role;

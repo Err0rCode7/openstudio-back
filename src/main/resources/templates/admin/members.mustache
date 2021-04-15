@@ -1,0 +1,41 @@
+{{>/layout/members/header}}
+<h1>Admin Page - Subject</h1>
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-8">
+            <a href="/admin/members/save" role="button" class="btn btn-primary">유저 등록</a>
+            {{#userName}}
+                Logged in as: <span id="user">{{userName}}</span>
+                <a href="/logout" class="btn btn-info active" role="button">Logout</a>
+            {{/userName}}
+        </div>
+    </div>
+    <br>
+    <!-- 목록 출력 영역 -->
+    <table class="table table-horizontal table-bordered">
+        <thead class="thead-strong">
+        <tr>
+            <th>유저 번호</th>
+            <th>유저 이름</th>
+            <th>유저 이메일</th>
+            <th>유저 사진</th>
+            <th>권한</th>
+            <th>가입 날짜</th>
+        </tr>
+        </thead>
+        <tbody id="tbody">
+        {{#members}}
+            <tr>
+                <td>{{id}}</td>
+                <td><a href="/admin/members/update/{{id}}">{{name}}</a></td>
+                <td>{{email}}</td>
+                <td><img width=40px height=40px src="{{picture}}"></td>
+                <td>{{role}}</td>
+                <td>{{createdAt}}</td>
+                <td><button id="btn-delete-row" class="btn btn-info active" role="button">Delete</button></td>
+            </tr>
+        {{/members}}
+        </tbody>
+    </table>
+</div>
+{{>/layout/members/footer}}

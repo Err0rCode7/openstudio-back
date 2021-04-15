@@ -26,16 +26,14 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @RequestMapping("/admin")
 @Controller
-public class AdminController {
+public class SubjectsAdminController {
 
-    private final InitService initService;
     private final SubjectService subjectService;
 
     @GetMapping("/")
     public String getIndex(Model model, @LoginUser SessionUser user) {
-        return "index-admin";
+        return "admin/index";
     }
-
 
     @GetMapping("/subjects")
     public String subjectsPage(Model model, @LoginUser SessionUser user) {
@@ -43,32 +41,20 @@ public class AdminController {
         model.addAttribute("subjects", subjectService.findAllDesc());
 
         if (user != null) {
-            model.addAttribute("userName", user.getIntraId());
+            model.addAttribute("userName", user.getName());
         }
-        return "subjects-admin";
+        return "admin/subjects";
     }
 
     @GetMapping("/subjects/save")
     public String subjectsSavePage(Model model) {
-        return "subjects-save";
+        return "admin/subjects-save";
     }
 
     @GetMapping("/subjects/update/{id}")
-    public String subjectsSavePage(Model model, @PathVariable Long id) {
+    public String subjectsUpdatePage(Model model, @PathVariable Long id) {
         model.addAttribute("subject", subjectService.findById(id));
 
-        return "subjects-update";
-    }
-
-    @GetMapping("/init/pool")
-    @ResponseBody
-    public int initPool() {
-        return initService.createWeeklyPools();
-    }
-
-    @GetMapping("/init/subject")
-    @ResponseBody
-    public List<Subject> initSubject() {
-        return initService.initSubjectTable();
+        return "admin/subjects-update";
     }
 }

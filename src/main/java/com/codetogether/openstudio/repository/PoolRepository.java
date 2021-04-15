@@ -16,4 +16,9 @@ public interface PoolRepository extends JpaRepository<Pool, Long> {
                 "AND " +
                 "p.createdAt < :#{#currentTime}")
     List<Pool> findByDateBetween(@Param("currentTime") LocalDateTime date);
+
+    @Query("SELECT p FROM Pool p " +
+            "JOIN FETCH p.subject " +
+            "ORDER BY p.id DESC")
+    List<Pool> findAllDesc();
 }

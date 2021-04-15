@@ -7,12 +7,12 @@ import java.io.Serializable;
 
 @Getter
 public class SessionUser implements Serializable {
-    private String intraId;
+    private String name;
     private String email;
     private String picture;
 
     public SessionUser(Member member) {
-        this.intraId = member.getIntraId();
+        this.name = member.getName();
         this.email = member.getEmail();
         this.picture = member.getPicture();
     }
