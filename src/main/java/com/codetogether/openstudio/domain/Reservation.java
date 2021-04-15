@@ -1,13 +1,14 @@
 package com.codetogether.openstudio.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
-@Getter
 @NoArgsConstructor
+@Getter
+@Entity
 public class Reservation extends BaseTimeEntity {
     @Id
     @GeneratedValue
@@ -20,6 +21,7 @@ public class Reservation extends BaseTimeEntity {
     @JoinColumn(name = "pool_id")
     private Pool pool;
 
+    @Builder
     public Reservation(Member member, Pool pool) {
         this.member = member;
         this.pool = pool;

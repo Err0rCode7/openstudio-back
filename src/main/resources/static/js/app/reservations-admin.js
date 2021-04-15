@@ -5,8 +5,8 @@ var main = {
             _this.save();
         });
 
-        $('#btn-update').on('click', function () {
-            _this.update();
+        $('#btn-delete-row').on('click', function () {
+            _this.deleteRow($(this));
         });
 
         $('#btn-delete').on('click', function () {
@@ -15,10 +15,8 @@ var main = {
     },
     save : function () {
         var data = {
-            name: $('#name').val(),
-            description: $('#description').val(),
-            circle: $('#circle').val(),
-            pdfRef: $('#pdfRef').val()
+            subjectName: $('#subjectName').val(),
+            userName: $('#userName').val()
         };
 
         $.ajax({
@@ -28,30 +26,23 @@ var main = {
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function() {
-            alert('예약 등록되었습니다.');
+            alert('예약이 등록되었습니다.');
             window.location.href = '/admin/reservations';
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
     },
-    update : function () {
-        var data = {
-            name: $('#name').val(),
-            description: $('#description').val(),
-            circle: $('#circle').val(),
-            pdfRef: $('#pdfRef').val()
-        };
-
-        var id = $('#id').val();
-
+    deleteRow : function(btn) {
+        var tr = btn.parent().parent();
+        var td = tr.children();
+        var id = td.eq(0).text();
         $.ajax({
-            type: 'PUT',
+            type: 'DELETE',
             url: '/api/v1/reservations/'+id,
             dataType: 'json',
-            contentType:'application/json; charset=utf-8',
-            data: JSON.stringify(data)
+            contentType:'application/json; charset=utf-8'
         }).done(function() {
-            alert('예약이 수정되었습니다.');
+            alert('예약이 취소되었습니다.');
             window.location.href = '/admin/reservations';
         }).fail(function (error) {
             alert(JSON.stringify(error));
@@ -65,7 +56,7 @@ var main = {
             dataType: 'json',
             contentType:'application/json; charset=utf-8'
         }).done(function() {
-            alert('예약이 삭제되었습니다.');
+            alert('예약이 취소되었습니다.');
             window.location.href = '/admin/reservations';
         }).fail(function (error) {
             alert(JSON.stringify(error));
