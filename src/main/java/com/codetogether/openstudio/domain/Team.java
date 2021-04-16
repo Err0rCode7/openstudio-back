@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Getter
@@ -18,12 +20,15 @@ public class Team extends BaseTimeEntity {
     @Column(name = "team_id")
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "subject_id")
-    private Subject subject;
+    @JoinColumn(name = "pool_id")
+    private Pool pool;
     private LocalDateTime closedAt;
 
-    public Team(Subject subject, LocalDateTime createdAt, LocalDateTime closedAt) {
-        this.subject = subject;
+    @OneToMany(mappedBy = "team")
+    private List<TeamMember> teamMembers = new ArrayList<>();
+
+    public Team(Pool pool, LocalDateTime closedAt) {
+        this.pool = pool;
         this.closedAt = closedAt;
     }
 }

@@ -1,0 +1,22 @@
+{{>layout/reservations/header}}
+
+<h1>예약 등록</h1>
+
+<div class="col-md-12">
+    <div class="col-md-4">
+        <form>
+            <div class="form-group">
+                <label for="subjectName"> 서브젝트 이름 </label>
+                <input type="text" class="form-control" id="subjectName" placeholder="서브젝트 이름을 입력하세요">
+            </div>
+            <div class="form-group">
+                <label for="userName"> 유저 이름 </label>
+                <input type="text" class="form-control" id="userName" placeholder="유저 이름을 입력해주세요">
+            </div>
+        </form>
+        <a href="/admin/reservaions" role="button" class="btn btn-secondary">취소</a>
+        <button type="button" class="btn btn-primary" id="btn-save">등록</button>
+    </div>
+</div>
+
+{{>layout/reservations/footer}}
