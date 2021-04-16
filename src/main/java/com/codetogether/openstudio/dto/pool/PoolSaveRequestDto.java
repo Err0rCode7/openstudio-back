@@ -11,11 +11,6 @@ public class PoolSaveRequestDto {
     private Subject subject;
     private LocalDateTime closedAt;
 
-    public PoolSaveRequestDto(Pool entity) {
-        this.subject = entity.getSubject();
-        this.closedAt = entity.getClosedAt();
-    }
-
     public Pool toEntity() {
         return Pool.builder()
                 .subject(subject)

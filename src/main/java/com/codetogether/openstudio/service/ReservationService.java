@@ -11,6 +11,7 @@ import com.codetogether.openstudio.repository.PoolRepository;
 import com.codetogether.openstudio.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,18 +26,21 @@ public class ReservationService {
     private final MemberRepository memberRepository;
     private final PoolRepository poolRepository;
 
+    @Transactional(readOnly = true)
     public List<ReservationListResponseDto> findAllDesc() {
         return reservationRepository.findAllDesc().stream()
                 .map(ReservationListResponseDto::new)
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public List<ReservationListResponseDto> findByDateBetween(LocalDateTime date) {
         return reservationRepository.findByDateBetween(date).stream()
                 .map(ReservationListResponseDto::new)
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public Long save(ReservationRequestDto requestDto) {
         List<Pool> pools = poolRepository.findBySubjectNameAndDateBetween(LocalDateTime.now(), requestDto.getSubjectName());
         if (pools.size() == 0) {
@@ -52,7 +56,7 @@ public class ReservationService {
                                         .getId();
         }
     }
-
+    @Transactional
     public void delete(Long id) {
         reservationRepository.deleteById(id);
     }

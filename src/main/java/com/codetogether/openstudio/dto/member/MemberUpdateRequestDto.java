@@ -13,13 +13,6 @@ public class MemberUpdateRequestDto {
     private String picture;
     private Role role;
 
-    public MemberUpdateRequestDto(Member entity) {
-        this.name = entity.getName();
-        this.email = entity.getEmail();
-        this.picture = entity.getPicture();
-        this.role = entity.getRole();
-    }
-
     public Member toEntity() {
         return Member.builder()
                 .name(name)

@@ -2,27 +2,31 @@ package com.codetogether.openstudio.contorller.admin;
 
 import com.codetogether.openstudio.config.auth.LoginUser;
 import com.codetogether.openstudio.dto.auth.SessionUser;
-import com.codetogether.openstudio.service.PoolService;
+import com.codetogether.openstudio.service.TeamService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @RequiredArgsConstructor
-@RequestMapping("/admin/pools")
+@RequestMapping("/admin/teams")
 @Controller
-public class PoolsAdminController {
+public class TeamsAdminController {
 
-    private final PoolService poolService;
+    private final TeamService teamService;
 
     @GetMapping("")
-    public String dashboard(Model model, @LoginUser SessionUser user) {
+    public String dashboardPage(Model model, @LoginUser SessionUser user) {
         model.addAttribute("userName", user.getName());
-        model.addAttribute("pools", poolService.findAllDesc());
+        model.addAttribute("teams", teamService.findAllDesc());
 
-        return "admin/pools";
+        return "admin/teams";
+    }
+
+    @GetMapping("/save")
+    private String teamSavePage() {
+        return "admin/teams-save";
     }
 }

@@ -3,10 +3,7 @@ package com.codetogether.openstudio.domain;
 import lombok.Builder;
 import lombok.Getter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +18,9 @@ public class Subject extends BaseTimeEntity {
     private String pdfRef;
     private String description;
     private Long circle;
+
+    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Pool> pools = new ArrayList<>();
 
     public Subject() {
     }

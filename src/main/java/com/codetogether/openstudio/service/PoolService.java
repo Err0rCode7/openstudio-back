@@ -8,6 +8,7 @@ import com.codetogether.openstudio.dto.pool.PoolSaveRequestDto;
 import com.codetogether.openstudio.repository.PoolRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,22 +20,26 @@ public class PoolService {
 
     private final PoolRepository poolRepository;
 
+    @Transactional
     public Long save(PoolSaveRequestDto requestDto) {
         return poolRepository.save(requestDto.toEntity()).getId();
     }
 
+    @Transactional(readOnly = true)
     public List<PoolListResponseDto> findByDateBetween(LocalDateTime date) {
         return poolRepository.findByDateBetween(date).stream()
                 .map(PoolListResponseDto::new)
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public List<PoolListResponseDto> findAllDesc() {
         return poolRepository.findAllDesc().stream()
                 .map(PoolListResponseDto::new)
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public void deleteById(Long id) {
         Pool pool = poolRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 풀입니다. + id" + id));

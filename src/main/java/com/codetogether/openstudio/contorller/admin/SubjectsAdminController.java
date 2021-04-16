@@ -1,27 +1,14 @@
 package com.codetogether.openstudio.contorller.admin;
 
 import com.codetogether.openstudio.config.auth.LoginUser;
-import com.codetogether.openstudio.domain.Pool;
-import com.codetogether.openstudio.domain.Subject;
 import com.codetogether.openstudio.dto.auth.SessionUser;
-import com.codetogether.openstudio.dto.pool.PoolListResponseDto;
-import com.codetogether.openstudio.dto.pool.PoolSaveRequestDto;
 import com.codetogether.openstudio.dto.subject.SubjectListResponseDto;
-import com.codetogether.openstudio.dto.subject.SubjectResponseDto;
-import com.codetogether.openstudio.repository.SubjectRepository;
-import com.codetogether.openstudio.service.InitService;
-import com.codetogether.openstudio.service.PoolService;
 import com.codetogether.openstudio.service.SubjectService;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RequestMapping("/admin")

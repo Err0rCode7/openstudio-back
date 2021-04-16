@@ -23,7 +23,7 @@ public class InitAdminController {
 
         /**
          * 테스트용
-         * 시작시 서브젝트와 풀을 만들어놓는다.
+         * InitController Bean 생성자 주입시 서브젝트와 풀을 만들어놓는다.
          */
         this.initService.initSubjectTable();
         this.initService.createWeeklyPools();

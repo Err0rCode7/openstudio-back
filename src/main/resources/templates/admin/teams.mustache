@@ -1,9 +1,9 @@
-{{>layout/members/header}}
-<h1>Admin Page - Member</h1>
+{{> layout/teams/header }}
+<h1>Admin Page - Team</h1>
 <div class="col-md-12">
     <div class="row">
         <div class="col-md-8">
-            <a href="/admin/members/save" role="button" class="btn btn-primary">유저 등록</a>
+            <a href="/admin/teams/save" role="button" class="btn btn-primary">팀 생성</a>
             {{#userName}}
                 Logged in as: <span id="user">{{userName}}</span>
                 <a href="/logout" class="btn btn-info active" role="button">Logout</a>
@@ -15,27 +15,23 @@
     <table class="table table-horizontal table-bordered">
         <thead class="thead-strong">
         <tr>
-            <th>유저 번호</th>
-            <th>유저 이름</th>
-            <th>유저 이메일</th>
-            <th>유저 사진</th>
-            <th>권한</th>
-            <th>가입 날짜</th>
+            <th>팀 번호</th>
+            <th>유저 목록</th>
+            <th>Team 생성 시간</th>
+            <th>Team 종료 시간</th>
         </tr>
         </thead>
         <tbody id="tbody">
-        {{#members}}
+        {{#teams}}
             <tr>
                 <td>{{id}}</td>
-                <td><a href="/admin/members/update/{{id}}">{{name}}</a></td>
-                <td>{{email}}</td>
-                <td><img width=40px height=40px src="{{picture}}"></td>
-                <td>{{role}}</td>
+                <td>{{userNames}}</td>
                 <td>{{createdAt}}</td>
+                <td>{{closedAt}}</td>
                 <td><button id="btn-delete-row" class="btn btn-info active" role="button">Delete</button></td>
             </tr>
-        {{/members}}
+        {{/teams}}
         </tbody>
     </table>
 </div>
-{{>layout/members/footer}}
+{{> layout/teams/footer }}
