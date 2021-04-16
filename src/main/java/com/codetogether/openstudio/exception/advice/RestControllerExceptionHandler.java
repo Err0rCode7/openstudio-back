@@ -2,6 +2,7 @@ package com.codetogether.openstudio.exception.advice;
 
 import com.codetogether.openstudio.dto.CommonResponseDto;
 import com.codetogether.openstudio.dto.ErrorResponseDto;
+import com.codetogether.openstudio.exception.NoSuchSessionUserException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,7 +14,9 @@ import java.util.NoSuchElementException;
 @RestControllerAdvice(annotations = RestController.class)
 public class RestControllerExceptionHandler {
 
-    @ExceptionHandler(value = {IllegalArgumentException.class, NoSuchElementException.class})
+    @ExceptionHandler(value = {IllegalArgumentException.class,
+                                NoSuchElementException.class,
+                                NoSuchSessionUserException.class})
     public ResponseEntity<ErrorResponseDto> errorHandler(RuntimeException e) {
 
         ErrorResponseDto responseDto = new ErrorResponseDto(false, e.getMessage());
