@@ -8,10 +8,9 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
-    @Query("SELECT distinct r FROM Reservation r " +
+    @Query("SELECT r FROM Reservation r " +
             "JOIN FETCH r.pool p " +
             "JOIN FETCH p.subject s " +
             "JOIN FETCH r.member m " +

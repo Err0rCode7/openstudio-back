@@ -5,8 +5,6 @@ import lombok.Getter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -19,9 +17,6 @@ public class Pool extends BaseTimeEntity {
     @JoinColumn(name = "subject_id")
     private Subject subject;
     private LocalDateTime closedAt;
-
-    @OneToMany(mappedBy = "pool", fetch = FetchType.LAZY)
-    private List<Reservation> reservations = new ArrayList<>();
 
     public Pool() {
     }
