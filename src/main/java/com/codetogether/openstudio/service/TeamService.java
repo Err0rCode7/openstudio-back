@@ -34,8 +34,7 @@ public class TeamService {
     public List<TeamListResponseDto> findAllDesc() {
         return teamRepository.findAllDesc().stream()
                 .map(team -> {
-                    team.update(teamMemberRepository.findByTeamId(team.getId()).stream()
-                            .collect(Collectors.toList()));
+                    team.update(teamMemberRepository.findByTeamId(team.getId()));
                     return new TeamListResponseDto(team);
                 })
                 .collect(Collectors.toList());
