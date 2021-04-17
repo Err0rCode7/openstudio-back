@@ -6,6 +6,7 @@ import com.codetogether.openstudio.dto.auth.SessionUser;
 import com.codetogether.openstudio.dto.page.Page1ResponseDto;
 import com.codetogether.openstudio.dto.page.Page2ReservationRequestDto;
 import com.codetogether.openstudio.dto.page.Page2ResponseDto;
+import com.codetogether.openstudio.dto.page.Page3ResponseDto;
 import com.codetogether.openstudio.dto.reservation.ReservationRequestDto;
 import com.codetogether.openstudio.exception.NoSuchSessionUserException;
 import com.codetogether.openstudio.service.PageService;
@@ -48,9 +49,8 @@ public class PageController {
         return pageService.deleteReservationByUserName(user.getName());
     }
 
-//
-//    @GetMapping("/page-3")
-//    public Page1ResponseDto getPage1() {
-//
-//    }
+    @GetMapping("/page-3")
+    public Page3ResponseDto getPage3() {
+        return pageService.getPage3();
+    }
 }

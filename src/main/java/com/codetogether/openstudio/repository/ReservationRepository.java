@@ -20,6 +20,13 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             "p.createdAt < :#{#currentTime}")
     List<Reservation> findByDateBetween(@Param("currentTime") LocalDateTime date);
 
+    @Query("SELECT COUNT(r.id) FROM Reservation r " +
+            "JOIN r.pool p " +
+            "WHERE p.closedAt > :#{#currentTime} " +
+            "AND " +
+            "p.createdAt < :#{#currentTime}")
+    long countByDateBetween(@Param("currentTime") LocalDateTime date);
+
     @Query("SELECT r FROM Reservation r " +
             "JOIN FETCH r.pool p " +
             "JOIN FETCH r.member m " +

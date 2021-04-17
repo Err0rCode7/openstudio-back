@@ -7,6 +7,8 @@ import com.codetogether.openstudio.dto.CommonResponseDto;
 import com.codetogether.openstudio.dto.page.*;
 import com.codetogether.openstudio.repository.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -19,11 +21,12 @@ import java.util.stream.Collectors;
 public class PageService {
 
     private final ReservationRepository reservationRepository;
-    private final TeamRepository teamRepository;
     private final TeamMemberRepository teamMemberRepository;
+    private final TeamRepository teamRepository;
     private final SubjectRepository subjectRepository;
     private final PoolRepository poolRepository;
     private final MemberRepository memberRepository;
+    private final Environment environment;
 
     public Page1ResponseDto getPage1(String intraId) {
         UserReservation currentMatchingReservation;
@@ -75,5 +78,21 @@ public class PageService {
                 .orElseThrow(() -> new IllegalArgumentException("이번주 해당 이름의 유저의 예약이 없습니다. memberName = " + memberName));
         reservationRepository.deleteById(reservation.getId());
         return new CommonResponseDto(true, "정상적으로 예약이 취소되었습니다.");
+    }
+
+    public Page3ResponseDto getPage3() {
+        Integer cadetCount = Integer.parseInt(environment.getProperty("openstudio.cadetcount"));
+        Integer openStudioUserCount = (int) memberRepository.count();
+        Integer totalOpenStudioTeamCount = (int) teamRepository.count();
+        Integer totalMatchedUserCount = (int) teamMemberRepository.count();
+        Integer totalReservationCountForThisWeek = (int) reservationRepository.countByDateBetween(LocalDateTime.now());
+
+        return Page3ResponseDto.builder()
+                .cadetCount(cadetCount)
+                .openStudioUserCount(openStudioUserCount)
+                .totalOpenStudioTeamCount(totalOpenStudioTeamCount)
+                .totalMatchedUserCount(totalMatchedUserCount)
+                .totalReservationCountForThisWeek(totalReservationCountForThisWeek)
+                .build();
     }
 }
