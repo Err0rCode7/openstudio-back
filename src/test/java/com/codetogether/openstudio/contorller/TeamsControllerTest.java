@@ -1,32 +1,25 @@
 package com.codetogether.openstudio.contorller;
 
 import com.codetogether.openstudio.config.auth.Role;
-import com.codetogether.openstudio.contorller.admin.InitAdminController;
 import com.codetogether.openstudio.domain.Member;
 import com.codetogether.openstudio.domain.Pool;
 import com.codetogether.openstudio.domain.Reservation;
-import com.codetogether.openstudio.domain.Team;
-import com.codetogether.openstudio.dto.member.MemberSaveRequestDto;
 import com.codetogether.openstudio.dto.team.TeamListResponseDto;
 import com.codetogether.openstudio.repository.MemberRepository;
 import com.codetogether.openstudio.repository.PoolRepository;
 import com.codetogether.openstudio.repository.ReservationRepository;
 import com.codetogether.openstudio.repository.TeamRepository;
 import com.codetogether.openstudio.service.InitService;
-import com.codetogether.openstudio.service.MemberService;
 import com.codetogether.openstudio.service.TeamService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class TeamsControllerTest {
@@ -77,14 +70,22 @@ class TeamsControllerTest {
         reservationRepository.save(new Reservation(member6, pools.get(0)));
         reservationRepository.save(new Reservation(member7, pools.get(0)));
 
-        //when
-        //매칭 시작을 했을때
+//        when
+//        매칭 시작을 했을때
         teamService.matchAllReservationsOfPools();
 
-        //then
-        //랜덤하게 3명, 4명 팀으로 나눠진 Team 과 TeamMember 쿼리가 진행되어야한다.
-        //Team -> 2개
-        //TeamMember -> 7개
+//        then
+//        마감된 풀의 reservation이 모두 closed여야한다.
+        List<Reservation> reservations = reservationRepository.findByDateBetween(LocalDateTime.now());
+        for (Reservation reservation : reservations) {
+            Assertions.assertThat(reservation.getIsClosed()).isEqualTo(true);
+        }
+
+//
+//
+//        랜덤하게 3명, 4명 팀으로 나눠진 Team 과 TeamMember 쿼리가 진행되어야한다.
+//        Team -> 2개
+//        TeamMember -> 7개
 
         List<TeamListResponseDto> teams = teamService.findAllDesc();
         Assertions.assertThat(teams.size()).isEqualTo(2);
