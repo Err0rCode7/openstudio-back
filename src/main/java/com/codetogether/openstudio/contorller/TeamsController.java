@@ -2,6 +2,7 @@ package com.codetogether.openstudio.contorller;
 
 import com.codetogether.openstudio.dto.team.TeamSaveRequestDto;
 import com.codetogether.openstudio.service.TeamService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,5 +22,12 @@ public class TeamsController {
     public Long delete(@PathVariable Long id) {
         teamService.delete(id);
         return id;
+    }
+
+    @GetMapping("")
+    public String matchTest() {
+
+        teamService.matchAllReservationsOfPools();
+        return "ok";
     }
 }

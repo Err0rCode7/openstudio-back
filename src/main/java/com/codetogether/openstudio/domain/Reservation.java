@@ -21,9 +21,17 @@ public class Reservation extends BaseTimeEntity {
     @JoinColumn(name = "pool_id")
     private Pool pool;
 
+    @Column(name = "is_closed")
+    private Boolean isClosed;
+
     @Builder
     public Reservation(Member member, Pool pool) {
         this.member = member;
         this.pool = pool;
+        this.isClosed = false;
+    }
+
+    public void close() {
+        this.isClosed = true;
     }
 }

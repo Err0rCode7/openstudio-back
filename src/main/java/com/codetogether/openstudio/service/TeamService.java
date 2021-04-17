@@ -10,12 +10,15 @@ import com.codetogether.openstudio.repository.MemberRepository;
 import com.codetogether.openstudio.repository.PoolRepository;
 import com.codetogether.openstudio.repository.TeamMemberRepository;
 import com.codetogether.openstudio.repository.TeamRepository;
+import com.codetogether.openstudio.util.CollectorUtils;
+import com.codetogether.openstudio.util.DividerUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -66,4 +69,13 @@ public class TeamService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 팀 번호입니다. id =" + id));
         teamRepository.deleteById(id);
     }
+
+    @Transactional
+    public void matchAllReservationsOfPools() {
+        poolRepository.findByDateBetween(LocalDateTime.now()).stream()
+                .map(DividerUtils::getTeamList)
+                .forEach(teams -> teams.stream()
+                        .forEach(teamRepository::save));
+    }
+
 }
