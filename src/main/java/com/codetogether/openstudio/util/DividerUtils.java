@@ -1,6 +1,9 @@
 package com.codetogether.openstudio.util;
 
 import com.codetogether.openstudio.domain.*;
+import com.codetogether.openstudio.service.MailService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -10,8 +13,8 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Component
 public class DividerUtils {
-
     private static final int DEFAULT_DIVISION_SIZE = 3;
     private static final Collector<Reservation, ?, Stream<Reservation>> SHUFFLER = CollectorUtils.toShuffledStream();
     private static int index = 0;
@@ -34,7 +37,6 @@ public class DividerUtils {
             index = 0;
             return Optional.empty();
         } else {
-            System.out.println("index = " + index);
             index += nextOffset;
             return Optional.of(reservations.subList(index - nextOffset, index));
         }
@@ -53,7 +55,7 @@ public class DividerUtils {
         return dividedReservations;
     }
 
-    public static List<Team> getTeamList(Pool pool) {
+    public static List<Team> getTeamList(Pool pool, MailService mailService) {
         List<Reservation> randomReservations = pool.getReservations().stream()
                 .collect(SHUFFLER)
                 .collect(Collectors.toList());
@@ -62,7 +64,9 @@ public class DividerUtils {
                     List<Member> members = reservations.stream()
                             .map(reservation -> {
                                 reservation.close();
-                                return reservation.getMember();
+                                Member member = reservation.getMember();
+                                mailService.addTarget(member.getEmail());
+                                return member;
                             })
                             .collect(Collectors.toList());
                     System.out.println("members.get(0) = " + members.get(0));

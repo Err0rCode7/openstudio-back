@@ -28,6 +28,7 @@ public class TeamService {
     private final PoolRepository poolRepository;
     private final MemberRepository memberRepository;
     private final TeamMemberRepository teamMemberRepository;
+    private final MailService mailService;
 
     @Transactional(readOnly = true)
     public List<TeamListResponseDto> findAllDesc() {
@@ -73,7 +74,7 @@ public class TeamService {
     @Transactional
     public void matchAllReservationsOfPools() {
         poolRepository.findByDateBetween(LocalDateTime.now()).stream()
-                .map(DividerUtils::getTeamList)
+                .map((Pool pool) -> DividerUtils.getTeamList(pool, mailService))
                 .forEach(teams -> teams.stream()
                         .forEach(teamRepository::save));
     }
