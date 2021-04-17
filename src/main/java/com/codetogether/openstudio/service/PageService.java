@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -28,6 +29,7 @@ public class PageService {
     private final MemberRepository memberRepository;
     private final Environment environment;
 
+    @Transactional
     public Page1ResponseDto getPage1(String intraId) {
         UserReservation currentMatchingReservation;
 
@@ -46,6 +48,7 @@ public class PageService {
         return new Page1ResponseDto(true, intraId, currentMatchingReservation, pastTeamLog);
     }
 
+    @Transactional
     public Page2ResponseDto getPage2() {
         List<SubjectInfo> subjectInfos = subjectRepository.findAllOrderByCircleASC().stream()
                 .map(subject -> new SubjectInfo(subject,
@@ -57,6 +60,7 @@ public class PageService {
         return new Page2ResponseDto(subjectInfos);
     }
 
+    @Transactional
     public CommonResponseDto saveReservation(Page2ReservationRequestDto requestDto) {
         List<Pool> pools = poolRepository.findBySubjectNameAndDateBetween(LocalDateTime.now(), requestDto.getSubjectName());
         if (pools.size() == 0) {
@@ -73,6 +77,7 @@ public class PageService {
         }
     }
 
+    @Transactional
     public CommonResponseDto deleteReservationByUserName(String memberName) {
         Reservation reservation = reservationRepository.findByMemberNameAndDateBetween(memberName, LocalDateTime.now())
                 .orElseThrow(() -> new IllegalArgumentException("이번주 해당 이름의 유저의 예약이 없습니다. memberName = " + memberName));
@@ -80,6 +85,7 @@ public class PageService {
         return new CommonResponseDto(true, "정상적으로 예약이 취소되었습니다.");
     }
 
+    @Transactional(readOnly = true)
     public Page3ResponseDto getPage3() {
         Integer cadetCount = Integer.parseInt(environment.getProperty("openstudio.cadetcount"));
         Integer openStudioUserCount = (int) memberRepository.count();
