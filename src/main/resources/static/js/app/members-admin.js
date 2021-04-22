@@ -25,6 +25,12 @@ var main = {
             role: $('#role').val()
         };
 
+        if (data.name.length == 0 || data.email.length == 0 ||
+        data.picture.length == 0 || data.role.length == 0) {
+            alert("내용을 전부 입력해주세요");
+            return;
+        }
+
         $.ajax({
             type: 'POST',
             url: '/api/v1/members',
@@ -46,7 +52,15 @@ var main = {
             role: $('#role').val()
         };
 
+        if (data.name.length == 0 || data.email.length == 0 ||
+        data.picture.length == 0 || data.role.length == 0) {
+            alert("내용을 전부 입력해주세요");
+            return;
+        }
         var id = $('#id').val();
+
+        if (id == "" || id == undefined)
+            return
 
         $.ajax({
             type: 'PUT',
@@ -65,6 +79,9 @@ var main = {
         var tr = btn.parent().parent();
         var td = tr.children();
         var id = td.eq(0).text();
+
+        if (id == "" || id == undefined)
+            return
         $.ajax({
             type: 'DELETE',
             url: '/api/v1/members/'+id,
@@ -79,6 +96,8 @@ var main = {
     },
     delete : function() {
         var id = $('#id').val();
+        if (id == "" || id == undefined)
+            return
         $.ajax({
             type: 'DELETE',
             url: '/api/v1/members/'+id,

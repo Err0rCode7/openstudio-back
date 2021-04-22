@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<th:block th:fragment="fragment-section-main">
+    <section>
+        <div class="container">
+            <div class="d-title">
+                <h2>Open Studio</h2>
+            </div>
+            <div class="d-content">
+                <div class="row">
+                    <ul>
+                        <li>Admin Page</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>
+
+<th:block th:fragment="fragment-section-member">
+    <section>
+        <div class="container">
+            <div class="d-title">
+                <h2 style="margin-right: 10px;">Member 조회</h2>
+                <a href="/admin/members/save" style="color:cornflowerblue;" id="btn-save" class="btn active" role="button">New</a>
+            </div>
+            <div class="d-content">
+                <div class="row">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr class="text-center">
+                                <th>유저 번호</th>
+                                <th>유저 이름</th>
+                                <th>유저 이메일</th>
+                                <th>유저 사진</th>
+                                <th>권한</th>
+                                <th>가입 날짜</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="text-center" th:object="${member}" th:each="member: ${members}" th:attr="data-href=@{/admin/members/__${member.id}__}">
+                                <td th:text="*{ id }"></td>
+                                <td><a th:href="|/admin/members/update/*{ id }|" th:text="*{ name }"></a></td>
+                                <td th:text="*{ email }"></td>
+                                <td th:text="*{ picture }"></td>
+                                <td th:text="*{ role }"></td>
+                                <td th:text="*{ createdAt }"></td>
+                                <td><button id="btn-delete-row" class="btn active" role="button">❌</button></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>
+
+<th:block th:fragment="fragment-member-save">
+    <section>
+        <div class="container">
+            <div class="d-content _save_content">
+                <div class="d-title">
+                    <h2>Member 생성</h2>
+                </div>
+                <div class="col-md-4">
+                    <form class="_form">
+                        <div class="form-group">
+                            <label for="name">유저 이름</label>
+                            <input type="text" class="_form-control" id="name" placeholder="이름을 입력하세요">
+                        </div>
+                        <div class="form-group">
+                            <label for="email"> 이메일 </label>
+                            <input type="text" class="form-control" id="email" placeholder="이메일을 입력하세요">
+                        </div>
+                        <div class="form-group">
+                            <label for="picture"> 사진 </label>
+                            <input type="text" class="form-control" id="picture" placeholder="사진 주소를 입력하세요">
+                        </div>
+                        <div class="form-group">
+                            <label for="role"> 권한 </label>
+                            <input type="text" class="form-control" id="role" value="USER" readonly>
+                        </div>
+                    </form>
+                    <div class="_form_btns">
+                        <a href="/admin/members" role="button" class="btn btn-outline-secondary active">취소</a>
+                        <button type="button" class="btn btn-outline-success disable" id="btn-save">생성</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>
+
+<th:block th:fragment="fragment-member-update">
+    <section>
+        <div class="container">
+            <div class="d-content _save_content">
+                <div class="d-title">
+                    <h2>Member 수정</h2>
+                </div>
+                <div class="col-md-4">
+                    <form class="_form">
+                        <div class="form-group">
+                            <label for="id">유저 번호</label>
+                            <input type="text" class="form-control" id="id" th:value="${member.id}" readonly>
+                            <div class="form-group">
+                                <label for="name">유저 이름</label>
+                                <input type="text" class="form-control" id="name" th:value="${member.name}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="email"> 이메일 </label>
+                                <input type="text" class="form-control" id="email" th:value="${member.email}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="picture"> 사진 </label>
+                                <input type="text" class="form-control" id="picture" th:value="${member.picture}">
+                            </div>
+                            <div class="form-group">
+                                <label for="role"> 권한 </label>
+                                <input type="text" class="form-control" id="role" th:value="${member.role}" readonly>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="_form_btns">
+                        <a href="/admin/members" role="button" class="btn btn-outline-secondary active">취소</a>
+                        <button type="button" class="btn btn-outline-success disable" id="btn-update">수정</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>
+
+</html>

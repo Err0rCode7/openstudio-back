@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+    <th:block th:fragment="fragment-nav">
+        <nav class="navbar navbar-expand-lg navbar-light" id="nav_area">
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#nav_menu_area">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="nav_menu_area">
+                <ul class="navbar-nav" id="nav_menu">
+                    <li class='nav-item'  th:classappend="${currentPage eq 'home'} ? 'active' : ''"
+                        th:attr="data-href=@{/admin/}">홈</li>
+                    <li sec:authorize="hasRole('ADMIN')" class='nav-item'
+                        th:classappend="${currentPage eq 'user'} ? 'active' : ''"
+                        th:attr="data-href=@{/admin/members}">회원</li>
+                </ul>
+            </div>
+        </nav>
+    </th:block>
+
+    <th:block th:fragment="fragment-page-nav">
+        <div style="text-align: center;">
+            <nav>
+                <!--표에 사용될 변수값 초기화 -->
+                <ul class="pagination"
+                    th:with="start=${T(Math).floor(members.number/10)*10 + 1},
+                            last=(${start + 9 < members.totalPages ? start + 9 : members.totalPages})">
+                    <th:block th:with="
+                        firstAddr=@{/admin/members(page=0)},
+                        prevAddr=@{/admin/members(page=${members.number})},
+                        nextAddr=@{/admin/members(page=${members.number + 1})},
+                        lastAddr=@{/admin/members(page=${members.totalPages - 1})}">
+                        <li>
+                            <a th:href="${firstAddr}" aria-label="First">
+                                <span aria-hidden="true">First</span>
+                            </a>
+                        </li>
+                        <!-- 이전 페이지로 가기 버튼 -->
+                        <li th:class="${members.first} ? 'disabled'">
+                            <a th:href="${members.first} ? '#' :${prevAddr}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&lt;</span>
+                            </a>
+                        </li>
+                        <!--1,2,3,4,.. 등 페이지-->
+                        <li th:each="page: ${#numbers.sequence(start, last)}"
+                            th:class="${page == members.number + 1} ? 'active'">
+                            <a th:text="${page}" th:href="@{/admin/members(page=${page - 1})}"></a>
+                        </li>
+                        <!--다음 페이지로 -->
+                        <li th:class="${members.last} ? 'disabled'">
+                            <a th:href="${members.last} ? '#' : ${nextAddr}"
+                               aria-label="Next">
+                                <span aria-hidden="true">&gt;</span>
+                            </a>
+                        </li>
+                        <!--맨 마지막 페이지로 이동 -->
+                        <li>
+                            <a th:href="${lastAddr}" aria-label="Last">
+                                <span aria-hidden="true">Last</span>
+                            </a>
+                        </li>
+                    </th:block>
+                </ul>
+            </nav>
+        </div>
+    </th:block>
+</html>
