@@ -19,6 +19,8 @@ public class SubjectsAdminController {
 
     @GetMapping("/")
     public String getIndex(Model model, @LoginUser SessionUser user) {
+        model.addAttribute("userName", user.getName());
+        model.addAttribute("currentPage", "home");
         return "admin/index";
     }
 
