@@ -10,10 +10,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CustomOAuth2UserService customOAuth2UserService;
+    private final WebAccessDeniedHandler webAccessDeniedHandler;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception  {
         http
+                .cors().disable()
                 .csrf().disable()
                 .headers().frameOptions().disable()
                 .and()
@@ -26,10 +28,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .logout()
-                .logoutSuccessUrl("/oauth2/authorization/")
+                    .logoutSuccessUrl("/oauth2/authorization/")
+                .and()
+                .exceptionHandling().accessDeniedHandler(webAccessDeniedHandler)
                 .and()
                 .oauth2Login()
-                .userInfoEndpoint()
-                .userService(customOAuth2UserService);
+                    .userInfoEndpoint()
+                        .userService(customOAuth2UserService);
     }
 }

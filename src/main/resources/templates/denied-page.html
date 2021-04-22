@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>openstudio</title>
+</head>
+<body>
+<script th:inline="javascript">
+window.onload = function(){
+/*<![CDATA[*/
+    var nextPage = [[@{__${nextPage}__}]], msg = [[${msg}]];
+    if(nextPage) {
+        alert(msg);
+        location.href = nextPage;
+    } else {
+        location.href = [[@{/login}]];
+    }
+/*]]>*/
+};
+</script>
+</body>
+</html>
