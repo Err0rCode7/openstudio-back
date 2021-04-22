@@ -7,6 +7,9 @@ import com.codetogether.openstudio.dto.member.MemberSaveRequestDto;
 import com.codetogether.openstudio.dto.member.MemberUpdateRequestDto;
 import com.codetogether.openstudio.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +21,6 @@ import java.util.stream.Collectors;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-
 
     @Transactional(readOnly = true)
     public MemberResponseDto findByEmail(String email) {
@@ -43,6 +45,11 @@ public class MemberService {
 
     @Transactional
     public Long save(MemberSaveRequestDto requestDto) {
+        memberRepository.findByEmail(requestDto.getEmail())
+                .ifPresent(member -> new IllegalArgumentException("해당 이메일로는 계정을 생성할 수 없습니다."));
+        if (requestDto == null || requestDto.hasZeroString()) {
+            throw new IllegalArgumentException("가입을 요청한 유저의 정보에 빈 문자열이 존재합니다.");
+        }
         return memberRepository.save(requestDto.toEntity()).getId();
     }
 
@@ -59,5 +66,15 @@ public class MemberService {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 아이디를 갖는 유저가 없습니다. id = " + id));
         memberRepository.deleteById(id);
+    }
+
+    public Page<MemberListResponseDto> findAllDesc(Pageable pageable) {
+        Page<Member> memberPage = memberRepository.findAllDesc(pageable);
+        int totalElements = (int) memberPage.getTotalElements();
+        System.out.println("totalElements = " + totalElements);
+        return new PageImpl<>(memberPage
+        .getContent().stream()
+        .map(MemberListResponseDto::new)
+        .collect(Collectors.toList()), pageable, totalElements);
     }
 }
