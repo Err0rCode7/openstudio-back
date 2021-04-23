@@ -11,16 +11,28 @@
             <div class="collapse navbar-collapse" id="nav_menu_area">
                 <ul class="navbar-nav" id="nav_menu">
                     <li class='nav-item'  th:classappend="${currentPage eq 'home'} ? 'active' : ''"
-                        th:attr="data-href=@{/admin/}">홈</li>
+                        th:attr="data-href=@{/admin/}">Home</li>
                     <li sec:authorize="hasRole('ADMIN')" class='nav-item'
-                        th:classappend="${currentPage eq 'user'} ? 'active' : ''"
-                        th:attr="data-href=@{/admin/members}">회원</li>
+                        th:classappend="${currentPage eq 'member'} ? 'active' : ''"
+                        th:attr="data-href=@{/admin/members}">Member</li>
+                    <li sec:authorize="hasRole('ADMIN')" class='nav-item'
+                        th:classappend="${currentPage eq 'subject'} ? 'active' : ''"
+                        th:attr="data-href=@{/admin/subjects}">Subject</li>
+                    <li sec:authorize="hasRole('ADMIN')" class='nav-item'
+                        th:classappend="${currentPage eq 'pool'} ? 'active' : ''"
+                        th:attr="data-href=@{/admin/pools}">Pool</li>
+                    <li sec:authorize="hasRole('ADMIN')" class='nav-item'
+                        th:classappend="${currentPage eq 'reservation'} ? 'active' : ''"
+                        th:attr="data-href=@{/admin/reservations}">Reservation</li>
+                    <li sec:authorize="hasRole('ADMIN')" class='nav-item'
+                        th:classappend="${currentPage eq 'team'} ? 'active' : ''"
+                        th:attr="data-href=@{/admin/teams}">Team</li>
                 </ul>
             </div>
         </nav>
     </th:block>
 
-    <th:block th:fragment="fragment-page-nav">
+    <th:block th:fragment="member-page-nav">
         <div style="text-align: center;">
             <nav>
                 <!--표에 사용될 변수값 초기화 -->
@@ -52,6 +64,198 @@
                         <!--다음 페이지로 -->
                         <li th:class="${members.last} ? 'disabled'">
                             <a th:href="${members.last} ? '#' : ${nextAddr}"
+                               aria-label="Next">
+                                <span aria-hidden="true">&gt;</span>
+                            </a>
+                        </li>
+                        <!--맨 마지막 페이지로 이동 -->
+                        <li>
+                            <a th:href="${lastAddr}" aria-label="Last">
+                                <span aria-hidden="true">Last</span>
+                            </a>
+                        </li>
+                    </th:block>
+                </ul>
+            </nav>
+        </div>
+    </th:block>
+
+    <th:block th:fragment="subject-page-nav">
+        <div style="text-align: center;">
+            <nav>
+                <!--표에 사용될 변수값 초기화 -->
+                <ul class="pagination"
+                    th:with="start=${T(Math).floor(subjects.number/10)*10 + 1},
+                            last=(${start + 9 < subjects.totalPages ? start + 9 : subjects.totalPages})">
+                    <th:block th:with="
+                        firstAddr=@{/admin/subjects(page=0)},
+                        prevAddr=@{/admin/subjects(page=${subjects.number})},
+                        nextAddr=@{/admin/subjects(page=${subjects.number + 1})},
+                        lastAddr=@{/admin/subjects(page=${subjects.totalPages - 1})}">
+                        <li>
+                            <a th:href="${firstAddr}" aria-label="First">
+                                <span aria-hidden="true">First</span>
+                            </a>
+                        </li>
+                        <!-- 이전 페이지로 가기 버튼 -->
+                        <li th:class="${subjects.first} ? 'disabled'">
+                            <a th:href="${subjects.first} ? '#' :${prevAddr}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&lt;</span>
+                            </a>
+                        </li>
+                        <!--1,2,3,4,.. 등 페이지-->
+                        <li th:each="page: ${#numbers.sequence(start, last)}"
+                            th:class="${page == subjects.number + 1} ? 'active'">
+                            <a th:text="${page}" th:href="@{/admin/subjects(page=${page - 1})}"></a>
+                        </li>
+                        <!--다음 페이지로 -->
+                        <li th:class="${subjects.last} ? 'disabled'">
+                            <a th:href="${subjects.last} ? '#' : ${nextAddr}"
+                               aria-label="Next">
+                                <span aria-hidden="true">&gt;</span>
+                            </a>
+                        </li>
+                        <!--맨 마지막 페이지로 이동 -->
+                        <li>
+                            <a th:href="${lastAddr}" aria-label="Last">
+                                <span aria-hidden="true">Last</span>
+                            </a>
+                        </li>
+                    </th:block>
+                </ul>
+            </nav>
+        </div>
+    </th:block>
+
+    <th:block th:fragment="pool-page-nav">
+        <div style="text-align: center;">
+            <nav>
+                <!--표에 사용될 변수값 초기화 -->
+                <ul class="pagination"
+                    th:with="start=${T(Math).floor(pools.number/10)*10 + 1},
+                            last=(${start + 9 < pools.totalPages ? start + 9 : pools.totalPages})">
+                    <th:block th:with="
+                        firstAddr=@{/admin/pools(page=0)},
+                        prevAddr=@{/admin/pools(page=${pools.number})},
+                        nextAddr=@{/admin/pools(page=${pools.number + 1})},
+                        lastAddr=@{/admin/pools(page=${pools.totalPages - 1})}">
+                        <li>
+                            <a th:href="${firstAddr}" aria-label="First">
+                                <span aria-hidden="true">First</span>
+                            </a>
+                        </li>
+                        <!-- 이전 페이지로 가기 버튼 -->
+                        <li th:class="${pools.first} ? 'disabled'">
+                            <a th:href="${pools.first} ? '#' :${prevAddr}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&lt;</span>
+                            </a>
+                        </li>
+                        <!--1,2,3,4,.. 등 페이지-->
+                        <li th:each="page: ${#numbers.sequence(start, last)}"
+                            th:class="${page == pools.number + 1} ? 'active'">
+                            <a th:text="${page}" th:href="@{/admin/pools(page=${page - 1})}"></a>
+                        </li>
+                        <!--다음 페이지로 -->
+                        <li th:class="${pools.last} ? 'disabled'">
+                            <a th:href="${pools.last} ? '#' : ${nextAddr}"
+                               aria-label="Next">
+                                <span aria-hidden="true">&gt;</span>
+                            </a>
+                        </li>
+                        <!--맨 마지막 페이지로 이동 -->
+                        <li>
+                            <a th:href="${lastAddr}" aria-label="Last">
+                                <span aria-hidden="true">Last</span>
+                            </a>
+                        </li>
+                    </th:block>
+                </ul>
+            </nav>
+        </div>
+    </th:block>
+
+    <th:block th:fragment="reservation-page-nav">
+        <div style="text-align: center;">
+            <nav>
+                <!--표에 사용될 변수값 초기화 -->
+                <ul class="pagination"
+                    th:with="start=${T(Math).floor(reservations.number/10)*10 + 1},
+                            last=(${start + 9 < reservations.totalPages ? start + 9 : reservations.totalPages})">
+                    <th:block th:with="
+                        firstAddr=@{/admin/reservations(page=0)},
+                        prevAddr=@{/admin/reservations(page=${reservations.number})},
+                        nextAddr=@{/admin/reservations(page=${reservations.number + 1})},
+                        lastAddr=@{/admin/reservations(page=${reservations.totalPages - 1})}">
+                        <li>
+                            <a th:href="${firstAddr}" aria-label="First">
+                                <span aria-hidden="true">First</span>
+                            </a>
+                        </li>
+                        <!-- 이전 페이지로 가기 버튼 -->
+                        <li th:class="${reservations.first} ? 'disabled'">
+                            <a th:href="${reservations.first} ? '#' :${prevAddr}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&lt;</span>
+                            </a>
+                        </li>
+                        <!--1,2,3,4,.. 등 페이지-->
+                        <li th:each="page: ${#numbers.sequence(start, last)}"
+                            th:class="${page == reservations.number + 1} ? 'active'">
+                            <a th:text="${page}" th:href="@{/admin/reservations(page=${page - 1})}"></a>
+                        </li>
+                        <!--다음 페이지로 -->
+                        <li th:class="${reservations.last} ? 'disabled'">
+                            <a th:href="${reservations.last} ? '#' : ${nextAddr}"
+                               aria-label="Next">
+                                <span aria-hidden="true">&gt;</span>
+                            </a>
+                        </li>
+                        <!--맨 마지막 페이지로 이동 -->
+                        <li>
+                            <a th:href="${lastAddr}" aria-label="Last">
+                                <span aria-hidden="true">Last</span>
+                            </a>
+                        </li>
+                    </th:block>
+                </ul>
+            </nav>
+        </div>
+    </th:block>
+
+    <th:block th:fragment="team-page-nav">
+        <div style="text-align: center;">
+            <nav>
+                <!--표에 사용될 변수값 초기화 -->
+                <ul class="pagination"
+                    th:with="start=${T(Math).floor(teams.number/10)*10 + 1},
+                            last=(${start + 9 < teams.totalPages ? start + 9 : teams.totalPages})">
+                    <th:block th:with="
+                        firstAddr=@{/admin/teams(page=0)},
+                        prevAddr=@{/admin/teams(page=${teams.number})},
+                        nextAddr=@{/admin/teams(page=${teams.number + 1})},
+                        lastAddr=@{/admin/teams(page=${teams.totalPages - 1})}">
+                        <li>
+                            <a th:href="${firstAddr}" aria-label="First">
+                                <span aria-hidden="true">First</span>
+                            </a>
+                        </li>
+                        <!-- 이전 페이지로 가기 버튼 -->
+                        <li th:class="${teams.first} ? 'disabled'">
+                            <a th:href="${teams.first} ? '#' :${prevAddr}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&lt;</span>
+                            </a>
+                        </li>
+                        <!--1,2,3,4,.. 등 페이지-->
+                        <li th:each="page: ${#numbers.sequence(start, last)}"
+                            th:class="${page == teams.number + 1} ? 'active'">
+                            <a th:text="${page}" th:href="@{/admin/teams(page=${page - 1})}"></a>
+                        </li>
+                        <!--다음 페이지로 -->
+                        <li th:class="${teams.last} ? 'disabled'">
+                            <a th:href="${teams.last} ? '#' : ${nextAddr}"
                                aria-label="Next">
                                 <span aria-hidden="true">&gt;</span>
                             </a>

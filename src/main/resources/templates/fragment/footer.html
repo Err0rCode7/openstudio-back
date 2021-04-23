@@ -9,7 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <script type="text/javascript" th:src="@{/js/app/notify.min.js}"></script>
+<!--    <script type="text/javascript" th:src="@{/js/app/notify.min.js}"></script>-->
     <script>
 		$.fn.serializeObject = function() {
 			var obj = null;
@@ -41,4 +41,21 @@
 <th:block th:fragment="fragment-footer-member">
     <script type="text/javascript" th:src="@{/js/app/members-admin.js}"></script>
 </th:block>
+
+<th:block th:fragment="fragment-footer-subject">
+    <script type="text/javascript" th:src="@{/js/app/subjects-admin.js}"></script>
+</th:block>
+
+<th:block th:fragment="fragment-footer-reservation">
+    <script type="text/javascript" th:src="@{/js/app/reservations-admin.js}"></script>
+</th:block>
+
+<th:block th:fragment="fragment-footer-pool">
+    <script type="text/javascript" th:src="@{/js/app/pools-admin.js}"></script>
+</th:block>
+
+<th:block th:fragment="fragment-footer-team">
+    <script type="text/javascript" th:src="@{/js/app/teams-admin.js}"></script>
+</th:block>
+
 </html>

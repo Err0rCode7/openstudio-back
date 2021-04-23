@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head th:replace="/fragment/head.html :: fragment-head"></head>
 <body>
     <th:block th:replace="/fragment/header.html :: fragment-header"></th:block>
     <th:block th:replace="/fragment/nav.html :: fragment-nav"></th:block>
-    <th:block th:replace="/fragment/section.html :: fragment-member-update"></th:block>
+    <th:block th:replace="/fragment/members-section.html :: fragment-member-update"></th:block>
     <th:block th:replace="/fragment/footer.html :: fragment-footer"></th:block>
     <th:block th:replace="/fragment/footer.html :: fragment-footer-member"></th:block>
 </body>

@@ -4,15 +4,17 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <th:block th:fragment="fragment-header">
     <header>
-        <a th:href="@{/admin/}"><img th:src="@{/static/img/like.png}" width="50" height="auto" alt="openstudio img" id="btn_home" /></a>
+        <a th:href="@{/admin/}"><img th:src="@{/img/42seoul.jpeg}" width="50" height="auto" alt="openstudio img" id="btn_home" /></a>
         <ul>
             <li sec:authorize="isAuthenticated()">
                 <span th:if="${userName}" th:text="${userName}"></span> 님 반가워요 !
             </li>
-            <li><form id="logoutFrm" th:action="@{/logout}" method="post" style="display: inline-block;">
+            <li>
+                <form id="logoutFrm" th:action="@{/logout}" method="post" style="display: inline-block;">
                 <a href="#" onclick="document.getElementById('logoutFrm').submit()" data-toggle="tooltip"
                    data-placement="logout" title="Logout"><i class="fa fa-power-off"></i></a>
-            </form></li>
+                </form>
+            </li>
         </ul>
     </header>
 </th:block>
