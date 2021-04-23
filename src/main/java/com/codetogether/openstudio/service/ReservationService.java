@@ -3,6 +3,7 @@ package com.codetogether.openstudio.service;
 import com.codetogether.openstudio.domain.Member;
 import com.codetogether.openstudio.domain.Pool;
 import com.codetogether.openstudio.domain.Reservation;
+import com.codetogether.openstudio.dto.pool.PoolListResponseDto;
 import com.codetogether.openstudio.dto.reservation.ReservationListResponseDto;
 import com.codetogether.openstudio.dto.reservation.ReservationRequestDto;
 import com.codetogether.openstudio.dto.reservation.ReservationResponseDto;
@@ -10,6 +11,9 @@ import com.codetogether.openstudio.repository.MemberRepository;
 import com.codetogether.openstudio.repository.PoolRepository;
 import com.codetogether.openstudio.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +35,16 @@ public class ReservationService {
         return reservationRepository.findAllDesc().stream()
                 .map(ReservationListResponseDto::new)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public Page<ReservationListResponseDto> findAllDesc(Pageable pageable) {
+        Page<Reservation> reservationPage = reservationRepository.findAllDesc(pageable);
+        int totalElements = (int) reservationPage.getTotalElements();
+        return new PageImpl<>(reservationPage
+                .getContent().stream()
+                .map(ReservationListResponseDto::new)
+                .collect(Collectors.toList()), pageable, totalElements);
     }
 
     @Transactional(readOnly = true)

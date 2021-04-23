@@ -1,12 +1,17 @@
 package com.codetogether.openstudio.service;
 
+import com.codetogether.openstudio.domain.Member;
 import com.codetogether.openstudio.domain.Pool;
 import com.codetogether.openstudio.domain.Subject;
+import com.codetogether.openstudio.dto.member.MemberListResponseDto;
 import com.codetogether.openstudio.dto.pool.PoolListResponseDto;
 import com.codetogether.openstudio.dto.pool.PoolResponseDto;
 import com.codetogether.openstudio.dto.pool.PoolSaveRequestDto;
 import com.codetogether.openstudio.repository.PoolRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +42,16 @@ public class PoolService {
         return poolRepository.findAllDesc().stream()
                 .map(PoolListResponseDto::new)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public Page<PoolListResponseDto> findAllDesc(Pageable pageable) {
+        Page<Pool> poolPage = poolRepository.findAllDesc(pageable);
+        int totalElements = (int) poolPage.getTotalElements();
+        return new PageImpl<>(poolPage
+                .getContent().stream()
+                .map(PoolListResponseDto::new)
+                .collect(Collectors.toList()), pageable, totalElements);
     }
 
     @Transactional
