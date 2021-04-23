@@ -23,6 +23,7 @@ public class Pool extends BaseTimeEntity {
     @OneToMany(mappedBy = "pool", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reservation> reservations = new ArrayList<>();
 
+
     public Pool() {
     }
 
@@ -31,4 +32,5 @@ public class Pool extends BaseTimeEntity {
         this.subject = subject;
         this.closedAt = closedAt;
     }
+
 }

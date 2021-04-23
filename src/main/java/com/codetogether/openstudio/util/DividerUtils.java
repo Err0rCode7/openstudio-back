@@ -59,6 +59,7 @@ public class DividerUtils {
         List<Reservation> randomReservations = pool.getReservations().stream()
                 .collect(SHUFFLER)
                 .collect(Collectors.toList());
+        System.out.println("randomReservations.size() = " + randomReservations.size());
         return divideReservations(randomReservations, pool.getSubject()).stream()
                 .map(reservations -> {
                     List<Member> members = reservations.stream()
@@ -69,7 +70,7 @@ public class DividerUtils {
                                 return member;
                             })
                             .collect(Collectors.toList());
-                    System.out.println("members.get(0) = " + members.get(0));
+                    System.out.println("members.size = " + members.size());
                     return new Team(pool, LocalDateTime.now().plusDays(7), members);
                 })
                 .collect(Collectors.toList());
