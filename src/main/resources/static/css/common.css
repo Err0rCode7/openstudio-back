@@ -141,11 +141,17 @@ section {
 
 section .container {
 	width: 100%;
-	min-height: 580px;
+	min-height: 800px;
 	margin: 0 auto;
 	padding: 30px 45px;
 	border: 1px solid #ebedef;
 	background-color: #ffffff;
+}
+
+.page_nav {
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 section .container .d-title {
