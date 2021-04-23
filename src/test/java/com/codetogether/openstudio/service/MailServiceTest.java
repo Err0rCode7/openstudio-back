@@ -7,6 +7,7 @@ import com.codetogether.openstudio.domain.Reservation;
 import com.codetogether.openstudio.repository.MemberRepository;
 import com.codetogether.openstudio.repository.PoolRepository;
 import com.codetogether.openstudio.repository.ReservationRepository;
+import com.codetogether.openstudio.repository.SubjectRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,6 +34,9 @@ public class MailServiceTest {
     ReservationRepository reservationRepository;
 
     @Autowired
+    SubjectRepository subjectRepository;
+
+    @Autowired
     MemberRepository memberRepository;
 
     @Autowired
@@ -47,6 +51,10 @@ public class MailServiceTest {
     public void 메일리스트확인() {
         //given
         // 3, 4명 있는 팀으로 팀 배정이 완료가 되었다.
+
+        poolRepository.deleteAll();
+        subjectRepository.deleteAll();
+
         this.initService.initSubjectTable();
         this.initService.createWeeklyPools();
 
@@ -74,7 +82,7 @@ public class MailServiceTest {
         //when
         //메일 서비스의 메일리스트를 확인했을 때
         List<String> mailList = mailService.getCopiedTargets();
-
+        mailList.stream().forEach(s -> System.out.println("mail = " + s));
         //then
         //총 7명의 메일이 있어야 한다.
         assertThat(mailList.size()).isEqualTo(7);

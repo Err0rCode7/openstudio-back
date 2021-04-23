@@ -71,7 +71,7 @@ public class SubjectServiceTest {
         // 내림차순으로 페이지를 조회하는 서비스를 통해 조회를하면
         Page<SubjectListResponseDto> responseDtos = subjectService.findAllDesc(pageable);
 
-        // 12명의 멤버 중 두명의 첫 번째와 두 번째 멤버가 조회되어야한다.
+        // 12개의 서브젝트 중 두개의 첫 번째와 두 번째 서브젝트가 조회되어야한다.
 
         assertThat(responseDtos.getNumberOfElements()).isEqualTo(2);
         List<SubjectListResponseDto> content = responseDtos.getContent();

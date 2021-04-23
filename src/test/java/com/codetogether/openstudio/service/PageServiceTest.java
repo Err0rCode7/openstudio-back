@@ -5,10 +5,10 @@ import com.codetogether.openstudio.contorller.TeamsControllerTest;
 import com.codetogether.openstudio.domain.Member;
 import com.codetogether.openstudio.domain.Pool;
 import com.codetogether.openstudio.domain.Reservation;
+import com.codetogether.openstudio.domain.Team;
 import com.codetogether.openstudio.dto.page.Page3ResponseDto;
-import com.codetogether.openstudio.repository.MemberRepository;
-import com.codetogether.openstudio.repository.PoolRepository;
-import com.codetogether.openstudio.repository.ReservationRepository;
+import com.codetogether.openstudio.dto.team.TeamListResponseDto;
+import com.codetogether.openstudio.repository.*;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,6 +34,9 @@ public class PageServiceTest {
     ReservationRepository reservationRepository;
 
     @Autowired
+    SubjectRepository subjectRepository;
+
+    @Autowired
     MemberRepository memberRepository;
 
     @Autowired
@@ -42,12 +45,19 @@ public class PageServiceTest {
     @Autowired
     TeamService teamService;
 
+    @Autowired
+    TeamRepository teamRepository;
+
     @Test
     @Transactional
     @DisplayName("page3 정상 작동 테스트")
     public void 페이지3_테스트() {
         //given
         //팀이 (3명, 4명)으로 2개 만들어진 상황
+
+        poolRepository.deleteAll();
+        subjectRepository.deleteAll();
+
         this.initService.initSubjectTable();
         this.initService.createWeeklyPools();
 
@@ -72,11 +82,9 @@ public class PageServiceTest {
         //3, 4명으로 팀이 만들어진다.
         teamService.matchAllReservationsOfPools();
 
-
         //when
         //페이지3를 테스트해서 DTO를 가져왔을 때
         Page3ResponseDto responseDto = pageService.getPage3();
-
 
         //then
         //openStudioUserCount : 7
