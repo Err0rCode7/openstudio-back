@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<th:block th:fragment="fragment-subject-save">
+    <section>
+        <div class="container">
+            <div class="d-content _save_content">
+                <div class="d-title">
+                    <h2>Subject 생성</h2>
+                </div>
+                <div class="col-md-4">
+                    <form class="_form">
+                        <div class="form-group">
+                            <label for="name"> 서브젝트 이름 </label>
+                            <input type="text" class="_form-control" id="name" placeholder="서브젝트 이름을 입력하세요">
+                        </div>
+                        <div class="form-group">
+                            <label for="circle"> 서클 </label>
+                            <input type="text" class="form-control" id="circle" placeholder="서클을 입력하세요">
+                        </div>
+                        <div class="form-group">
+                            <label for="pdfRef"> PDF Reference </label>
+                            <input type="text" class="form-control" id="pdfRef" placeholder="PDF Reference를 입력하세요">
+                        </div>
+                        <div class="form-group">
+                            <label for="description"> 서브젝트 설명 </label>
+                            <input type="text" class="form-control" id="description" placeholder="서브젝트 설명을 입력하세요">
+                        </div>
+                    </form>
+                    <div class="_form_btns">
+                        <a href="/admin/subjects" role="button" class="btn btn-outline-secondary active">취소</a>
+                        <button type="button" class="btn btn-outline-success disable" id="btn-save">생성</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>
+
+<th:block th:fragment="fragment-subject-update">
+    <section>
+        <div class="container">
+            <div class="d-content _save_content">
+                <div class="d-title">
+                    <h2>Member 수정</h2>
+                </div>
+                <div class="col-md-4">
+                    <form class="_form">
+                        <div class="form-group">
+                            <label for="id">서브젝트 번호</label>
+                            <input type="text" class="form-control" id="id" value="${subject.id}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">서브젝트 이름</label>
+                            <input type="text" class="form-control" id="name" value="${subject.name}">
+                        </div>
+                        <div class="form-group">
+                            <label for="pdfRef"> pdf 주소 </label>
+                            <input type="text" class="form-control" id="pdfRef" value="${subject.pdfRef}">
+                        </div>
+                        <div class="form-group">
+                            <label for="description"> 설명 </label>
+                            <textarea class="form-control" id="description">${subject.description}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="circle"> 서클 </label>
+                            <textarea class="form-control" id="circle">${subject.circle}</textarea>
+                        </div>
+                    </form>
+                    <div class="_form_btns">
+                        <a href="/admin/subjects" role="button" class="btn btn-outline-secondary active">취소</a>
+                        <button type="button" class="btn btn-outline-success disable" id="btn-update">수정</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>
+
+<th:block th:fragment="fragment-subject-board">
+    <section>
+        <div class="container">
+            <div class="d-title">
+                <h2 style="margin-right: 10px;">Subject 조회</h2>
+                <a href="/admin/subjects/save" style="color:cornflowerblue;" id="btn-save" class="btn active" role="button">New</a>
+            </div>
+            <div class="d-content">
+                <div class="row">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr class="text-center">
+                                <th>서브젝트 번호</th>
+                                <th>서브젝트 이름</th>
+                                <th>서브젝트 Pdf</th>
+                                <th>Description</th>
+                                <th>Circle</th>
+                                <th>최종수정일</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="text-center" th:object="${subject}" th:each="subject: ${subjects}" th:attr="data-href=@{/admin/subjects/__${subject.id}__}">
+                                <td th:text="*{ id }"></td>
+                                <td><a th:href="|/admin/subjects/update/*{ id }|" th:text="*{ name }"></a></td>
+                                <td th:text="*{ pdfRef }"></td>
+                                <td th:text="*{ description }"></td>
+                                <td th:text="*{ circle }"></td>
+                                <td th:text="*{ modifiedAt }"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>
+
+</html>
