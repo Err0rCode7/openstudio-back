@@ -13,6 +13,13 @@ public class MemberSaveRequestDto {
     private String picture;
     private Role role;
 
+    public MemberSaveRequestDto(String name, String email, String picture, Role role) {
+        this.name = name;
+        this.email = email;
+        this.picture = picture;
+        this.role = role;
+    }
+
     public Member toEntity() {
         return Member.builder()
                 .name(name)

@@ -11,4 +11,9 @@ import java.util.List;
 public class TeamSaveRequestDto {
     private String subjectName;
     private List<String> userNames = new ArrayList<>();
+
+    public TeamSaveRequestDto(String subjectName, List<String> userNames) {
+        this.subjectName = subjectName;
+        this.userNames = userNames;
+    }
 }

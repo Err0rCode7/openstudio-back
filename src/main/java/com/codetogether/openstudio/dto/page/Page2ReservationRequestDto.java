@@ -1,7 +1,9 @@
 package com.codetogether.openstudio.dto.page;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Getter
 public class Page2ReservationRequestDto {
     private String subjectName;

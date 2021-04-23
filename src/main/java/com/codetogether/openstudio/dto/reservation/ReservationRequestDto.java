@@ -11,4 +11,9 @@ public class ReservationRequestDto {
 
     private String subjectName;
     private String userName;
+
+    public ReservationRequestDto(String subjectName, String userName) {
+        this.subjectName = subjectName;
+        this.userName = userName;
+    }
 }
