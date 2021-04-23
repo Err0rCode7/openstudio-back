@@ -9,9 +9,6 @@ var main = {
             _this.deleteRow($(this));
         });
 
-        $('#btn-delete').on('click', function () {
-            _this.delete();
-        });
     },
     save : function () {
         var data = {
@@ -36,20 +33,6 @@ var main = {
         var tr = btn.parent().parent();
         var td = tr.children();
         var id = td.eq(0).text();
-        $.ajax({
-            type: 'DELETE',
-            url: '/api/v1/reservations/'+id,
-            dataType: 'json',
-            contentType:'application/json; charset=utf-8'
-        }).done(function() {
-            alert('예약이 취소되었습니다.');
-            window.location.href = '/admin/reservations';
-        }).fail(function (error) {
-            alert(JSON.stringify(error));
-        });
-    },
-    delete : function() {
-        var id = $('#id').val();
         $.ajax({
             type: 'DELETE',
             url: '/api/v1/reservations/'+id,

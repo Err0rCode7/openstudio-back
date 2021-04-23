@@ -9,7 +9,7 @@ var main = {
             _this.update();
         });
 
-        $('#btn-delete').on('click', function () {
+        $('#btn-delete-row').on('click', function () {
             _this.delete($(this));
         });
     },

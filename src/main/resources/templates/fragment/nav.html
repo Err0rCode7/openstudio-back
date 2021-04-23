@@ -38,7 +38,8 @@
                 <!--표에 사용될 변수값 초기화 -->
                 <ul class="pagination"
                     th:with="start=${T(Math).floor(members.number/10)*10 + 1},
-                            last=(${start + 9 < members.totalPages ? start + 9 : members.totalPages})">
+                            last=(${start + 4 < members.totalPages ? start + 4 : members.totalPages}),
+                            last=(${last <= 0 ? 1 : last})">
                     <th:block th:with="
                         firstAddr=@{/admin/members(page=0)},
                         prevAddr=@{/admin/members(page=${members.number})},
@@ -86,7 +87,8 @@
                 <!--표에 사용될 변수값 초기화 -->
                 <ul class="pagination"
                     th:with="start=${T(Math).floor(subjects.number/10)*10 + 1},
-                            last=(${start + 9 < subjects.totalPages ? start + 9 : subjects.totalPages})">
+                            last=(${start + 4 < subjects.totalPages ? start + 4 : subjects.totalPages}),
+                            last=(${last <= 0 ? 1 : last})">
                     <th:block th:with="
                         firstAddr=@{/admin/subjects(page=0)},
                         prevAddr=@{/admin/subjects(page=${subjects.number})},
@@ -134,12 +136,8 @@
                 <!--표에 사용될 변수값 초기화 -->
                 <ul class="pagination"
                     th:with="start=${T(Math).floor(pools.number/10)*10 + 1},
-                            last=(${start + 9 < pools.totalPages ? start + 9 : pools.totalPages})">
-                    <th:block th:with="
-                        firstAddr=@{/admin/pools(page=0)},
-                        prevAddr=@{/admin/pools(page=${pools.number})},
-                        nextAddr=@{/admin/pools(page=${pools.number + 1})},
-                        lastAddr=@{/admin/pools(page=${pools.totalPages - 1})}">
+                            last=(${start + 4 < pools.totalPages ? start + 4 : pools.totalPages}),
+                            last=(${last <= 0 ? 1 : last})">
                         <li>
                             <a th:href="${firstAddr}" aria-label="First">
                                 <span aria-hidden="true">First</span>
@@ -182,7 +180,8 @@
                 <!--표에 사용될 변수값 초기화 -->
                 <ul class="pagination"
                     th:with="start=${T(Math).floor(reservations.number/10)*10 + 1},
-                            last=(${start + 9 < reservations.totalPages ? start + 9 : reservations.totalPages})">
+                            last=(${start + 4 < reservations.totalPages ? start + 4 : reservations.totalPages}),
+                            last=(${last <= 0 ? 1 : last})">
                     <th:block th:with="
                         firstAddr=@{/admin/reservations(page=0)},
                         prevAddr=@{/admin/reservations(page=${reservations.number})},
@@ -230,7 +229,8 @@
                 <!--표에 사용될 변수값 초기화 -->
                 <ul class="pagination"
                     th:with="start=${T(Math).floor(teams.number/10)*10 + 1},
-                            last=(${start + 9 < teams.totalPages ? start + 9 : teams.totalPages})">
+                            last=(${start + 4 < teams.totalPages ? start + 4 : teams.totalPages}),
+                            last=(${last <= 0 ? 1 : last})">
                     <th:block th:with="
                         firstAddr=@{/admin/teams(page=0)},
                         prevAddr=@{/admin/teams(page=${teams.number})},

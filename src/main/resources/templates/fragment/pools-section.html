@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<th:block th:fragment="fragment-pool-board">
+    <section>
+        <div class="container">
+            <div class="d-title">
+                <h2 style="margin-right: 10px;">Pool 조회</h2>
+                <a href="/admin/pools/save" style="color:cornflowerblue;" id="btn-save" class="btn active" role="button">New</a>
+            </div>
+            <div class="d-content">
+                <div class="row">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>풀 번호</th>
+                                    <th>서브젝트 이름</th>
+                                    <th>생성 날짜</th>
+                                    <th>종료 날짜</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="text-center" th:object="${pool}" th:each="pool: ${pools}" th:attr="data-href=@{/admin/pools/__${pool.id}__}">
+                                    <td th:text="*{ id }"></td>
+                                    <td th:text="*{ subject.name }"></a></td>
+                                    <td th:text="*{ createdAt }"></td>
+                                    <td th:text="*{ closedAt }"></td>
+                                    <td><button id="btn-delete-row" class="btn active" role="button">❌</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>
+
+</html>
