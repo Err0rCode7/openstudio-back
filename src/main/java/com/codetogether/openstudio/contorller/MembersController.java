@@ -25,15 +25,14 @@ public class MembersController {
 
     @GetMapping("/me")
     public MemberResponseDto getMember(@LoginUser SessionUser user) {
-        if (user != null) {
-            MemberResponseDto responseDto = memberService.findByEmail(user.getEmail());
-            return responseDto;
+        if (user == null) {
+            return MemberResponseDto.builder()
+                    .name(null)
+                    .picture(null)
+                    .email(null)
+                    .build();
         }
-        return MemberResponseDto.builder()
-                .name(null)
-                .picture(null)
-                .email(null)
-                .build();
+        return memberService.findByEmail(user.getEmail());
     }
 
     @PostMapping("")

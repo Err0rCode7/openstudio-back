@@ -46,7 +46,9 @@ public class MemberService {
     @Transactional
     public Long save(MemberSaveRequestDto requestDto) {
         memberRepository.findByEmail(requestDto.getEmail())
-                .ifPresent(member -> new IllegalArgumentException("해당 이메일로는 계정을 생성할 수 없습니다."));
+                .ifPresent(member -> {
+                    throw new IllegalArgumentException("해당 이메일로는 계정을 생성할 수 없습니다.");
+                });
         if (requestDto == null || requestDto.hasZeroString()) {
             throw new IllegalArgumentException("가입을 요청한 유저의 정보에 빈 문자열이 존재합니다.");
         }
@@ -68,10 +70,10 @@ public class MemberService {
         memberRepository.deleteById(id);
     }
 
+    @Transactional(readOnly = true)
     public Page<MemberListResponseDto> findAllDesc(Pageable pageable) {
         Page<Member> memberPage = memberRepository.findAllDesc(pageable);
         int totalElements = (int) memberPage.getTotalElements();
-        System.out.println("totalElements = " + totalElements);
         return new PageImpl<>(memberPage
         .getContent().stream()
         .map(MemberListResponseDto::new)
