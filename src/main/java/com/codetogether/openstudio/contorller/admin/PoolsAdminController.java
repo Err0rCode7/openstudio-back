@@ -20,6 +20,7 @@ public class PoolsAdminController {
 
     @GetMapping("")
     public String dashboard(Model model, @LoginUser SessionUser user) {
+        model.addAttribute("currentPage", "pool");
         model.addAttribute("userName", user.getName());
         model.addAttribute("pools", poolService.findAllDesc());
 

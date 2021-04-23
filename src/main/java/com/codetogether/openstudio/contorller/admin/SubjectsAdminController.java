@@ -26,6 +26,7 @@ public class SubjectsAdminController {
 
     @GetMapping("/subjects")
     public String subjectsPage(Model model, @LoginUser SessionUser user) {
+        model.addAttribute("currentPage", "subject");
         List<SubjectListResponseDto> listResponseDtos = subjectService.findAllDesc();
         model.addAttribute("subjects", subjectService.findAllDesc());
 
@@ -37,11 +38,13 @@ public class SubjectsAdminController {
 
     @GetMapping("/subjects/save")
     public String subjectsSavePage(Model model) {
+        model.addAttribute("currentPage", "subject");
         return "admin/subjects-save";
     }
 
     @GetMapping("/subjects/update/{id}")
     public String subjectsUpdatePage(Model model, @PathVariable Long id) {
+        model.addAttribute("currentPage", "subject");
         model.addAttribute("subject", subjectService.findById(id));
 
         return "admin/subjects-update";

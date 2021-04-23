@@ -19,6 +19,7 @@ public class ReservationAdminController {
 
     @GetMapping("")
     public String dashboard(Model model, @LoginUser SessionUser user) {
+        model.addAttribute("currentPage", "reservation");
         model.addAttribute("userName", user.getName());
         model.addAttribute("reservations", reservationService.findAllDesc());
         return "admin/reservations";
@@ -26,6 +27,7 @@ public class ReservationAdminController {
 
     @GetMapping("/save")
     private String reservationSavePage(Model model) {
+        model.addAttribute("currentPage", "reservation");
         return "admin/reservations-save";
     }
 }

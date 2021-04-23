@@ -19,6 +19,7 @@ public class TeamsAdminController {
 
     @GetMapping("")
     public String dashboardPage(Model model, @LoginUser SessionUser user) {
+        model.addAttribute("currentPage", "team");
         model.addAttribute("userName", user.getName());
         model.addAttribute("teams", teamService.findAllDesc());
 
@@ -26,7 +27,8 @@ public class TeamsAdminController {
     }
 
     @GetMapping("/save")
-    private String teamSavePage() {
+    private String teamSavePage(Model model) {
+        model.addAttribute("currentPage", "team");
         return "admin/teams-save";
     }
 }

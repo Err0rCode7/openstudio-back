@@ -23,6 +23,7 @@ public class MembersAdminController {
 
     @GetMapping("")
     public String dashboard(Model model, @LoginUser SessionUser user, @PageableDefault Pageable pageable) {
+        model.addAttribute("currentPage", "member");
         model.addAttribute("userName", user.getName());
         model.addAttribute("members", memberService.findAllDesc(pageable));
         return "admin/members";
@@ -30,6 +31,7 @@ public class MembersAdminController {
 
     @GetMapping("/update/{id}")
     public String memberUpdatePage(@PathVariable Long id, Model model, @LoginUser SessionUser user) {
+        model.addAttribute("currentPage", "member");
         model.addAttribute("userName", user.getName());
         model.addAttribute("member", memberService.findById(id));
         return "admin/members-update";
@@ -37,6 +39,7 @@ public class MembersAdminController {
 
     @GetMapping("/save")
     public String memberSavePage(Model model,  @LoginUser SessionUser user) {
+        model.addAttribute("currentPage", "member");
         model.addAttribute("userName", user.getName());
         return "admin/members-save";
     }
