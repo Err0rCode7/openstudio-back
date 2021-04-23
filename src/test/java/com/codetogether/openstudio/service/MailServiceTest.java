@@ -12,6 +12,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -41,6 +42,7 @@ public class MailServiceTest {
     TeamService teamService;
 
     @Test
+    @Transactional
     @DisplayName("팀 배정을 하고 메일서비스에 매칭된 유저들의 메일이있는 지 확인")
     public void 메일리스트확인() {
         //given
