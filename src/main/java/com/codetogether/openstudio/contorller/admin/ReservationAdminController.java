@@ -5,6 +5,8 @@ import com.codetogether.openstudio.dto.auth.SessionUser;
 import com.codetogether.openstudio.service.ReservationService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +20,11 @@ public class ReservationAdminController {
     private final ReservationService reservationService;
 
     @GetMapping("")
-    public String dashboard(Model model, @LoginUser SessionUser user) {
+    public String dashboard(Model model, @LoginUser SessionUser user, @PageableDefault Pageable pageable) {
         model.addAttribute("currentPage", "reservation");
         model.addAttribute("userName", user.getName());
-        model.addAttribute("reservations", reservationService.findAllDesc());
+        model.addAttribute("reservations", reservationService.findAllDesc(pageable));
+
         return "admin/reservations";
     }
 

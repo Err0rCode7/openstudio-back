@@ -5,6 +5,8 @@ import com.codetogether.openstudio.dto.auth.SessionUser;
 import com.codetogether.openstudio.dto.subject.SubjectListResponseDto;
 import com.codetogether.openstudio.service.SubjectService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,11 +27,9 @@ public class SubjectsAdminController {
     }
 
     @GetMapping("/subjects")
-    public String subjectsPage(Model model, @LoginUser SessionUser user) {
+    public String subjectsPage(Model model, @LoginUser SessionUser user, @PageableDefault Pageable pageable) {
         model.addAttribute("currentPage", "subject");
-        List<SubjectListResponseDto> listResponseDtos = subjectService.findAllDesc();
-        model.addAttribute("subjects", subjectService.findAllDesc());
-
+        model.addAttribute("subjects", subjectService.findAllDesc(pageable));
         if (user != null) {
             model.addAttribute("userName", user.getName());
         }
