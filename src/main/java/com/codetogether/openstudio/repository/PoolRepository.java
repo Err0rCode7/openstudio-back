@@ -1,6 +1,8 @@
 package com.codetogether.openstudio.repository;
 
 import com.codetogether.openstudio.domain.Pool;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -31,4 +33,10 @@ public interface PoolRepository extends JpaRepository<Pool, Long> {
             "JOIN FETCH p.subject " +
             "ORDER BY p.id DESC")
     List<Pool> findAllDesc();
+
+    @Query(value = "SELECT p FROM Pool p " +
+            "JOIN FETCH p.subject " +
+            "ORDER BY p.id DESC",
+            countQuery = "SELECT count(p) FROM Pool p INNER JOIN p.subject")
+    Page<Pool> findAllDesc(Pageable pageable);
 }
