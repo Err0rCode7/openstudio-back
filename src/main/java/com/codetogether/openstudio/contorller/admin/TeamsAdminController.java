@@ -29,7 +29,8 @@ public class TeamsAdminController {
     }
 
     @GetMapping("/save")
-    private String teamSavePage(Model model) {
+    private String teamSavePage(Model model, @LoginUser SessionUser user) {
+        model.addAttribute("userName", user.getName());
         model.addAttribute("currentPage", "team");
         return "admin/teams-save";
     }
