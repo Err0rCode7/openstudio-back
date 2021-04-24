@@ -88,10 +88,7 @@ public class TeamService {
     public void matchAllReservationsOfPools() {
         poolRepository.findByDateBetween(LocalDateTime.now()).stream()
                 .map((pool) -> {
-                    reservationRepository.findByPoolId(pool.getId())
-                            .stream()
-                            .forEach(reservation ->
-                                    pool.getReservations().add(reservation));
+                    pool.getReservations().addAll(reservationRepository.findByPoolId(pool.getId()));
                     return DividerUtils.getTeamList(pool, mailService);
                 })
                 .forEach(teams -> teams.stream()
