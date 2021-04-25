@@ -109,14 +109,14 @@ public class MemberServiceTest {
         // given
         // member를 저장하고
         // 컨트롤러를 통해 Member id와 멤버의 사진을 수정요청하는 dto를 전달 받았다.
-        MemberSaveRequestDto dto = new MemberSaveRequestDto("member1", "email", "picture", Role.USER);
-        Long savedMemberId = memberService.save(dto);
+        Member newMember = new Member("member1", "email", "picture", Role.USER);
+        Member savedMember = memberRepository.save(newMember);
 
-        MemberUpdateRequestDto requestDto = new MemberUpdateRequestDto("member1", "email", "TestPicture", Role.USER);
+        MemberUpdateRequestDto requestDto = new MemberUpdateRequestDto("member2", "email2", "TestPicture", Role.GUEST);
 
         // when
         // 멤버 서비스가 dto를 통해 수정을 하면
-        Long updatedMemberId = memberService.update(savedMemberId, requestDto);
+        Long updatedMemberId = memberService.update(savedMember.getId(), requestDto);
 
         // Id로 수정된 멤버 조회시 해당 멤버의 사진이 정상적으로 변경되어있어야 한다.
 
@@ -124,7 +124,10 @@ public class MemberServiceTest {
 
         assertThat(member.isPresent()).isTrue();
 
-        assertThat(member.get().getPicture()).isEqualTo("TestPicture");
+        assertThat(member.get().getName()).isEqualTo(requestDto.getName());
+        assertThat(member.get().getEmail()).isEqualTo(requestDto.getEmail());
+        assertThat(member.get().getPicture()).isEqualTo(requestDto.getPicture());
+        assertThat(member.get().getRole()).isEqualTo(requestDto.getRole());
     }
 
     @Test

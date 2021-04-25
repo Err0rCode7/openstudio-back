@@ -22,6 +22,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     Optional<Member> findByEmail(String email);
     @Query("SELECT count(m) FROM Member m " +
             "WHERE m.name = :#{#name} " +
-            "OR m.email = :#{#email}")
-    Long countByNameOrEmail(@Param("name") String name, @Param("email") String email);
+            "OR m.email = :#{#email} " +
+            "And m.id <> :#{#id}")
+    Long countByNameOrEmailAndId(String name, String email, Long id);
 }
