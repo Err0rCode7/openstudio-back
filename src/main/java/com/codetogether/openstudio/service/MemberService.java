@@ -59,6 +59,10 @@ public class MemberService {
     public Long update(Long id, MemberUpdateRequestDto requestDto) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 아이디를 갖는 유저가 없습니다. id = " + id));
+        Long foundMemberCount = memberRepository.countByNameOrEmail(requestDto.getName(), requestDto.getEmail());
+        if (foundMemberCount != 1L) {
+            throw new IllegalArgumentException("해당 이름 또는 이메일을 갖은 유저가 존재합니다. name = " + requestDto.getName() + ", email = " + requestDto.getEmail());
+        }
         member.update(requestDto.getPicture());
         return id;
     }
