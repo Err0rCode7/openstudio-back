@@ -1,6 +1,7 @@
 package com.codetogether.openstudio.domain;
 
 import com.codetogether.openstudio.config.auth.Role;
+import com.codetogether.openstudio.dto.member.MemberUpdateRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,6 +38,15 @@ public class Member extends BaseTimeEntity {
 
     public Member update(String picture) {
         this.picture = picture;
+
+        return this;
+    }
+
+    public Member update(MemberUpdateRequestDto requestDto) {
+        this.name = requestDto.getName();
+        this.email = requestDto.getEmail();
+        this.picture = requestDto.getPicture();
+        this.role = requestDto.getRole();
 
         return this;
     }
