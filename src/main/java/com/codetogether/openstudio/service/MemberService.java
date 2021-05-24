@@ -49,9 +49,6 @@ public class MemberService {
                 .ifPresent(member -> {
                     throw new IllegalArgumentException("해당 이메일로는 계정을 생성할 수 없습니다.");
                 });
-        if (requestDto == null || hasZeroString(requestDto)) {
-            throw new IllegalArgumentException("가입을 요청한 유저의 정보에 빈 문자열이 존재합니다.");
-        }
         return memberRepository.save(requestDto.toEntity()).getId();
     }
 
@@ -82,15 +79,5 @@ public class MemberService {
         .getContent().stream()
         .map(MemberListResponseDto::new)
         .collect(Collectors.toList()), pageable, totalElements);
-    }
-
-    public static boolean hasZeroString(MemberSaveRequestDto dto) {
-        System.out.println("name = " + dto.getName());
-        if (dto.getName().length() == 0 || dto.getEmail().length() == 0 || dto.getPicture().length() == 0 ||
-                dto.getRole() == null || dto.getRole().name().length() == 0) {
-            return true;
-        } else {
-            return false;
-        }
     }
 }
