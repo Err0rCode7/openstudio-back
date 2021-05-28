@@ -87,10 +87,7 @@ public class TeamService {
     @Transactional
     public void matchAllReservationsOfPools() {
         poolRepository.findByDateBetween(LocalDateTime.now()).stream()
-                .map((pool) -> {
-                    pool.getReservations().addAll(reservationRepository.findByPoolId(pool.getId()));
-                    return DividerUtils.getTeamList(pool, mailService);
-                })
+                .map((pool) -> DividerUtils.getTeamList(pool, mailService))
                 .forEach(teams -> teams.stream()
                         .forEach(teamRepository::save));
     }

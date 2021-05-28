@@ -15,7 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -45,6 +48,9 @@ public class MailServiceTest {
     @Autowired
     TeamService teamService;
 
+    @PersistenceContext
+    EntityManager em;
+
     @Test
     @Transactional
     @DisplayName("팀 배정을 하고 메일서비스에 매칭된 유저들의 메일이있는 지 확인")
@@ -68,13 +74,30 @@ public class MailServiceTest {
         Member member7 = memberRepository.save(new Member("member7", "7", "7", Role.USER));
 
         List<Pool> pools = poolRepository.findBySubjectNameAndDateBetween(LocalDateTime.now(), "libft");
-        reservationRepository.save(new Reservation(member1, pools.get(0)));
-        reservationRepository.save(new Reservation(member2, pools.get(0)));
-        reservationRepository.save(new Reservation(member3, pools.get(0)));
-        reservationRepository.save(new Reservation(member4, pools.get(0)));
-        reservationRepository.save(new Reservation(member5, pools.get(0)));
-        reservationRepository.save(new Reservation(member6, pools.get(0)));
-        reservationRepository.save(new Reservation(member7, pools.get(0)));
+        List<Reservation> reservations = new ArrayList<>();
+        System.out.println("pools.get(0).getId() = " + pools.get(0).getId());
+        Reservation reservation1 = new Reservation(member1, pools.get(0));
+        Reservation reservation2 = new Reservation(member2, pools.get(0));
+        Reservation reservation3 = new Reservation(member3, pools.get(0));
+        Reservation reservation4 = new Reservation(member4, pools.get(0));
+        Reservation reservation5 = new Reservation(member5, pools.get(0));
+        Reservation reservation6 = new Reservation(member6, pools.get(0));
+        Reservation reservation7 = new Reservation(member7, pools.get(0));
+
+        reservations.add(reservation1);
+        reservations.add(reservation2);
+        reservations.add(reservation3);
+        reservations.add(reservation4);
+        reservations.add(reservation5);
+        reservations.add(reservation6);
+        reservations.add(reservation7);
+
+        for (Reservation reservation : reservations) {
+            reservationRepository.save(reservation);
+        }
+
+        em.flush();
+        em.clear();
 
         //3, 4명으로 팀이 만들어진다.
         teamService.matchAllReservationsOfPools();
