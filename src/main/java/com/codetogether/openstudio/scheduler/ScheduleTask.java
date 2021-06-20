@@ -34,6 +34,5 @@ public class ScheduleTask {
     public void matchTeamFromReservation() {
         System.out.println("scheduledTask MatchTeam : " + LocalDateTime.now());
         teamService.matchAllReservationsOfPools();
-        mailService.sendSurveyFormToTargets();
     }
 }

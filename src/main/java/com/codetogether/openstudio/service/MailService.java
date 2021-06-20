@@ -1,5 +1,7 @@
 package com.codetogether.openstudio.service;
 
+import com.codetogether.openstudio.domain.Team;
+import com.codetogether.openstudio.properties.CadetProperty;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -13,17 +15,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @Service
 public class MailService {
 
     private final JavaMailSender mailSender;
-    private final Environment environment;
-    private final List<String> emails = new ArrayList<>();
-
+    private final CadetProperty cadetProperty;
     public void sendSurveyFormTo(String email) {
-        String survey = environment.getProperty("openstudio.survey");
+        String survey = cadetProperty.getSurveyForm();
 
         MimeMessage mail = mailSender.createMimeMessage();
         String htmlStr = "<h2>Hello! This is OpenStudio Email </h2><br><br>" +
@@ -39,28 +40,17 @@ public class MailService {
         }
     }
 
-    public void addTarget(String email) {
-        emails.add(email);
-    }
 
-    public void clearEmail() {
-        emails.clear();
-    }
-
-    public int getTargetsCount() {
-        return emails.size();
-    }
-
-    public List<String> getCopiedTargets() {
-        return emails.stream()
-                .map(String::new)
-                .collect(Collectors.toList());
-    }
-
-    public void sendSurveyFormToTargets() {
+    public void sendSurveyForm(List<String> emails) {
         for (String email : emails) {
             sendSurveyFormTo(email);
         }
-        clearEmail();
+    }
+
+    public void sendSurveyForm(Team team) {
+        List<String> emails = team.getTeamMembers().stream()
+                .map(teamMember -> teamMember.getMember().getEmail())
+                .collect(Collectors.toList());
+        sendSurveyForm(emails);
     }
 }
