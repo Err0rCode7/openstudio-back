@@ -1,0 +1,6 @@
+spring:
+  profiles:
+    include:
+      - oauth
+      - smtp
+    active: dev

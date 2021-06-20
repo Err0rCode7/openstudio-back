@@ -1,0 +1,45 @@
+spring:
+  config:
+    activate:
+      on-profile: dev
+  web:
+    resources:
+      cache:
+        period: 0
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        user_sql_comments: true
+  datasource:
+    url: jdbc:h2:mem:testdb
+    #    jdbc:h2:tcp://localhost/~/test
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+  session:
+    store-type: jdbc
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+        type:
+          descriptor:
+            sql: trace
+
+server:
+  servlet:
+    session:
+      cookie:
+        http-only: false
+
+openstudio:
+  survey: http://구글폼주소
+  cadetcount: 900
+
