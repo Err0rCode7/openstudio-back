@@ -5,6 +5,7 @@ import com.codetogether.openstudio.domain.Pool;
 import com.codetogether.openstudio.domain.Reservation;
 import com.codetogether.openstudio.dto.CommonResponseDto;
 import com.codetogether.openstudio.dto.page.*;
+import com.codetogether.openstudio.properties.CadetProperty;
 import com.codetogether.openstudio.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.PropertySource;
@@ -27,7 +28,7 @@ public class PageService {
     private final SubjectRepository subjectRepository;
     private final PoolRepository poolRepository;
     private final MemberRepository memberRepository;
-    private final Environment environment;
+    private final CadetProperty cadetProperty;
 
     @Transactional
     public Page1ResponseDto getPage1(String intraId) {
@@ -87,7 +88,7 @@ public class PageService {
 
     @Transactional(readOnly = true)
     public Page3ResponseDto getPage3() {
-        Integer cadetCount = Integer.parseInt(environment.getProperty("openstudio.cadetcount"));
+        Integer cadetCount = cadetProperty.getCadetCount();
         Integer openStudioUserCount = (int) memberRepository.count();
         Integer totalOpenStudioTeamCount = (int) teamRepository.count();
         Integer totalMatchedUserCount = (int) teamMemberRepository.count();
