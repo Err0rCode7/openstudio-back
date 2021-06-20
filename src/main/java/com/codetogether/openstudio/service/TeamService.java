@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @Service
@@ -27,7 +28,6 @@ public class TeamService {
     private final TeamRepository teamRepository;
     private final PoolRepository poolRepository;
     private final MemberRepository memberRepository;
-    private final ReservationRepository reservationRepository;
     private final TeamMemberRepository teamMemberRepository;
     private final MailService mailService;
 
@@ -86,10 +86,17 @@ public class TeamService {
 
     @Transactional
     public void matchAllReservationsOfPools() {
-        poolRepository.findByDateBetween(LocalDateTime.now()).stream()
-                .map((pool) -> DividerUtils.getTeamList(pool, mailService))
-                .forEach(teams -> teams.stream()
-                        .forEach(teamRepository::save));
+        DividerUtils dividerUtils = new DividerUtils();
+        Stream<List<Team>> teamsStream = poolRepository.findByDateBetween(LocalDateTime.now()).stream()
+                .map(pool -> dividerUtils.getTeamList(pool));
+        teamsStream
+            .forEach(teams -> {
+                teams.stream()
+                    .forEach(team -> {
+                        teamRepository.save(team);
+                        mailService.sendSurveyForm(team);
+                    });        
+            });
     }
 
     public static boolean isDifferentNames(List<String> names) {

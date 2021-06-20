@@ -14,12 +14,16 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 public class PageServiceTest {
@@ -47,6 +51,12 @@ public class PageServiceTest {
 
     @Autowired
     TeamRepository teamRepository;
+
+    @MockBean
+    MailService mailService;
+
+    @PersistenceContext
+    EntityManager em;
 
     @Test
     @Transactional
@@ -78,6 +88,9 @@ public class PageServiceTest {
         reservationRepository.save(new Reservation(member5, pools.get(0)));
         reservationRepository.save(new Reservation(member6, pools.get(0)));
         reservationRepository.save(new Reservation(member7, pools.get(0)));
+
+        em.flush();
+        em.clear();
 
         //3, 4명으로 팀이 만들어진다.
         teamService.matchAllReservationsOfPools();

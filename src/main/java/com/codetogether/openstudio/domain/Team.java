@@ -37,6 +37,7 @@ public class Team extends BaseTimeEntity {
     }
 
     public void update(List<TeamMember> teamMembers) {
-        this.teamMembers = teamMembers;
+        this.teamMembers.clear();
+        this.teamMembers.addAll(teamMembers);
     }
 }

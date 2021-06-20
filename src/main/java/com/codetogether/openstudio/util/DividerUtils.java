@@ -15,11 +15,11 @@ import java.util.stream.Stream;
 
 @Component
 public class DividerUtils {
-    private static final int DEFAULT_DIVISION_SIZE = 3;
-    private static final Collector<Reservation, ?, Stream<Reservation>> SHUFFLER = CollectorUtils.toShuffledStream();
-    private static int index = 0;
+    private final int DEFAULT_DIVISION_SIZE = 3;
+    private final Collector<Reservation, ?, Stream<Reservation>> SHUFFLER = CollectorUtils.toShuffledStream();
+    private int index = 0;
 
-    public static <T> int getNextOffset(List<T> reservations) {
+    public <T> int getNextOffset(List<T> reservations) {
         if ((reservations.size() - index) % DEFAULT_DIVISION_SIZE == 0) {
             return 3;
         } else {
@@ -31,7 +31,7 @@ public class DividerUtils {
         }
     }
 
-    public static Optional<List<Reservation>> getNextReservations(List<Reservation> reservations) {
+    public Optional<List<Reservation>> getNextReservations(List<Reservation> reservations) {
         int nextOffset = getNextOffset(reservations);
         if (nextOffset == 0) {
             index = 0;
@@ -42,20 +42,19 @@ public class DividerUtils {
         }
     }
 
-    public static List<List<Reservation>> divideReservations(List<Reservation> reservations, Subject subject) {
+    public List<List<Reservation>> divideReservations(List<Reservation> reservations, Subject subject) {
         List<List<Reservation>> dividedReservations = new ArrayList<>();
         while (index + DEFAULT_DIVISION_SIZE <= reservations.size()) {
             Optional<List<Reservation>> nextReservations = getNextReservations(reservations);
-            if (nextReservations.isPresent()) {
-                dividedReservations.add(nextReservations.get());
-            } else {
+            if (!nextReservations.isPresent()) {
                 break;
             }
+            dividedReservations.add(nextReservations.get());
         }
         return dividedReservations;
     }
 
-    public static List<Team> getTeamList(Pool pool, MailService mailService) {
+    public List<Team> getTeamList(Pool pool) {
         List<Reservation> randomReservations = pool.getReservations().stream()
                 .collect(SHUFFLER)
                 .collect(Collectors.toList());
@@ -65,7 +64,6 @@ public class DividerUtils {
                             .map(reservation -> {
                                 reservation.close();
                                 Member member = reservation.getMember();
-                                mailService.addTarget(member.getEmail());
                                 return member;
                             })
                             .collect(Collectors.toList());
