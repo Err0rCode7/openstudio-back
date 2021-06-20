@@ -7,12 +7,14 @@ import com.codetogether.openstudio.domain.Reservation;
 import com.codetogether.openstudio.dto.team.TeamListResponseDto;
 import com.codetogether.openstudio.repository.*;
 import com.codetogether.openstudio.service.InitService;
+import com.codetogether.openstudio.service.MailService;
 import com.codetogether.openstudio.service.TeamService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -44,6 +46,9 @@ public class TeamsControllerTest {
 
     @Autowired
     InitService initService;
+
+    @MockBean
+    MailService mailService;
 
     @PersistenceContext
     EntityManager em;
