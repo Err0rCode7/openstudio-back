@@ -20,16 +20,6 @@ public class InitAdminController {
         this.initService = initService;
     }
 
-    @PostConstruct
-    public void init() {
-        /**
-         * 테스트용
-         * InitController Bean 생성자 주입시 서브젝트와 풀을 만들어놓는다.
-         */
-        this.initService.initSubjectTable();
-        this.initService.createWeeklyPools();
-    }
-
     @GetMapping("/init/pool")
     public int initPool() {
         return initService.createWeeklyPools();
