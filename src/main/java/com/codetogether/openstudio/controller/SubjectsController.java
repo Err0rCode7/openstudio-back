@@ -1,4 +1,4 @@
-package com.codetogether.openstudio.contorller;
+package com.codetogether.openstudio.controller;
 
 import com.codetogether.openstudio.dto.subject.SubjectSaveRequestDto;
 import com.codetogether.openstudio.dto.subject.SubjectUpdateRequestDto;

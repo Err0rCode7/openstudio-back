@@ -1,4 +1,4 @@
-package com.codetogether.openstudio.contorller.page;
+package com.codetogether.openstudio.controller.page;
 
 import com.codetogether.openstudio.config.auth.LoginUser;
 import com.codetogether.openstudio.dto.CommonResponseDto;
@@ -7,10 +7,8 @@ import com.codetogether.openstudio.dto.page.Page1ResponseDto;
 import com.codetogether.openstudio.dto.page.Page2ReservationRequestDto;
 import com.codetogether.openstudio.dto.page.Page2ResponseDto;
 import com.codetogether.openstudio.dto.page.Page3ResponseDto;
-import com.codetogether.openstudio.dto.reservation.ReservationRequestDto;
 import com.codetogether.openstudio.exception.NoSuchSessionUserException;
 import com.codetogether.openstudio.service.PageService;
-import com.codetogether.openstudio.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

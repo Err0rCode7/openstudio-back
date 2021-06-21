@@ -1,8 +1,7 @@
-package com.codetogether.openstudio.contorller;
+package com.codetogether.openstudio.controller;
 
 import com.codetogether.openstudio.dto.team.TeamSaveRequestDto;
 import com.codetogether.openstudio.service.TeamService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

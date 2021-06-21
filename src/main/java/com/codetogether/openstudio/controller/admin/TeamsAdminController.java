@@ -1,10 +1,9 @@
-package com.codetogether.openstudio.contorller.admin;
+package com.codetogether.openstudio.controller.admin;
 
 import com.codetogether.openstudio.config.auth.LoginUser;
 import com.codetogether.openstudio.dto.auth.SessionUser;
 import com.codetogether.openstudio.service.TeamService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;

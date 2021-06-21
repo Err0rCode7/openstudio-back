@@ -1,14 +1,12 @@
-package com.codetogether.openstudio.contorller.admin;
+package com.codetogether.openstudio.controller.admin;
 
 import com.codetogether.openstudio.domain.Subject;
-import com.codetogether.openstudio.service.InitService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
+import com.codetogether.openstudio.util.InitService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 //@RequiredArgsConstructor
@@ -20,7 +18,10 @@ public class InitAdminController {
 
     public InitAdminController(InitService initService) {
         this.initService = initService;
+    }
 
+    @PostConstruct
+    public void init() {
         /**
          * 테스트용
          * InitController Bean 생성자 주입시 서브젝트와 풀을 만들어놓는다.

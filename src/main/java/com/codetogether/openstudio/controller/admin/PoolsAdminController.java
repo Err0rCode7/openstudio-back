@@ -1,4 +1,4 @@
-package com.codetogether.openstudio.contorller.admin;
+package com.codetogether.openstudio.controller.admin;
 
 import com.codetogether.openstudio.config.auth.LoginUser;
 import com.codetogether.openstudio.dto.auth.SessionUser;
@@ -9,9 +9,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @RequiredArgsConstructor
 @RequestMapping("/admin/pools")

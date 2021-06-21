@@ -1,4 +1,4 @@
-package com.codetogether.openstudio.contorller.admin;
+package com.codetogether.openstudio.controller.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

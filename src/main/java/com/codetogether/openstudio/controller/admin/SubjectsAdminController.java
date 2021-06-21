@@ -1,8 +1,7 @@
-package com.codetogether.openstudio.contorller.admin;
+package com.codetogether.openstudio.controller.admin;
 
 import com.codetogether.openstudio.config.auth.LoginUser;
 import com.codetogether.openstudio.dto.auth.SessionUser;
-import com.codetogether.openstudio.dto.subject.SubjectListResponseDto;
 import com.codetogether.openstudio.service.SubjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -10,7 +9,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/admin")

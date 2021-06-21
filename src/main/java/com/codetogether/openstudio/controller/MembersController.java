@@ -1,8 +1,6 @@
-package com.codetogether.openstudio.contorller;
+package com.codetogether.openstudio.controller;
 
 import com.codetogether.openstudio.config.auth.LoginUser;
-import com.codetogether.openstudio.config.auth.Role;
-import com.codetogether.openstudio.domain.Member;
 import com.codetogether.openstudio.dto.auth.SessionUser;
 import com.codetogether.openstudio.dto.member.MemberResponseDto;
 import com.codetogether.openstudio.dto.member.MemberSaveRequestDto;
@@ -10,10 +8,7 @@ import com.codetogether.openstudio.dto.member.MemberUpdateRequestDto;
 import com.codetogether.openstudio.repository.MemberRepository;
 import com.codetogether.openstudio.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/members")
