@@ -1,6 +1,6 @@
 package com.codetogether.openstudio.scheduler;
 
-import com.codetogether.openstudio.service.InitService;
+import com.codetogether.openstudio.util.InitService;
 import com.codetogether.openstudio.service.MailService;
 import com.codetogether.openstudio.service.TeamService;
 import lombok.RequiredArgsConstructor;
