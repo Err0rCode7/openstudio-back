@@ -13,7 +13,6 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@Component
 public class DividerUtils {
     private final int DEFAULT_DIVISION_SIZE = 3;
     private final Collector<Reservation, ?, Stream<Reservation>> SHUFFLER = CollectorUtils.toShuffledStream();
