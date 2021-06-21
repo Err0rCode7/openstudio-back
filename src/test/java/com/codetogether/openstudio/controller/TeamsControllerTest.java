@@ -1,4 +1,4 @@
-package com.codetogether.openstudio.contorller;
+package com.codetogether.openstudio.controller;
 
 import com.codetogether.openstudio.config.auth.Role;
 import com.codetogether.openstudio.domain.Member;
@@ -6,7 +6,7 @@ import com.codetogether.openstudio.domain.Pool;
 import com.codetogether.openstudio.domain.Reservation;
 import com.codetogether.openstudio.dto.team.TeamListResponseDto;
 import com.codetogether.openstudio.repository.*;
-import com.codetogether.openstudio.service.InitService;
+import com.codetogether.openstudio.util.InitService;
 import com.codetogether.openstudio.service.MailService;
 import com.codetogether.openstudio.service.TeamService;
 import org.assertj.core.api.Assertions;

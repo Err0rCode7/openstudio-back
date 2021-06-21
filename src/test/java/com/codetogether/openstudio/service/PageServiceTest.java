@@ -1,15 +1,12 @@
 package com.codetogether.openstudio.service;
 
 import com.codetogether.openstudio.config.auth.Role;
-import com.codetogether.openstudio.contorller.TeamsControllerTest;
 import com.codetogether.openstudio.domain.Member;
 import com.codetogether.openstudio.domain.Pool;
 import com.codetogether.openstudio.domain.Reservation;
-import com.codetogether.openstudio.domain.Team;
 import com.codetogether.openstudio.dto.page.Page3ResponseDto;
-import com.codetogether.openstudio.dto.team.TeamListResponseDto;
 import com.codetogether.openstudio.repository.*;
-import org.assertj.core.api.Assertions;
+import com.codetogether.openstudio.util.InitService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +20,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
 
 @SpringBootTest
 public class PageServiceTest {

@@ -1,4 +1,4 @@
-package com.codetogether.openstudio.service;
+package com.codetogether.openstudio.util;
 
 import com.codetogether.openstudio.domain.Pool;
 import com.codetogether.openstudio.domain.Subject;
