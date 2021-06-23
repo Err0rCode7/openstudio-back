@@ -13,6 +13,8 @@
 
 ## Build
 
+First of all, set `application-oauth.yaml` and `applciation-smtp.yaml` with yours
+
 - Quick Run
   
     `./gradlew bootRun`
