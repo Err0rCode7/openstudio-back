@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,12 @@ import java.util.stream.Collectors;
 public class InitService {
     private final PoolRepository poolRepository;
     private final SubjectRepository subjectRepository;
+
+    @PostConstruct
+    private void init() {
+        this.initSubjectTable();
+        this.createWeeklyPools();
+    }
 
     @Transactional
     public int createWeeklyPools() {
