@@ -10,3 +10,30 @@
 ![화면조회_압축](https://user-images.githubusercontent.com/48249549/116287115-fc1e2b00-a7ca-11eb-954d-6329ebceef83.gif)
 
 - [다른 기능 더보기](./docs/)
+
+## Build
+
+- Quick Run
+  
+    `./gradlew bootRun`
+- Build with tasks
+    - default profile
+      
+        `./gradlew build`
+    - my profile
+
+        - [dev, local] 중 택 1
+        
+        `./gradlew build -Pprofile=myprofile`
+- Run fat jar with built profile
+    ```shell
+    # -P는 생략가능
+    ./gradlew build -Pprofile=myprofile
+    java -jar application.jar
+    ```
+- Run fat jar with my profile
+    ```shell
+    ./gradlew build
+    java -Dspring.profiles.active=myprofile -jar applicaition.jar
+    ```
+  
