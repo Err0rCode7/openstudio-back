@@ -53,7 +53,10 @@ public class TeamService {
 
     @Transactional
     public Long save(TeamSaveRequestDto requestDto) {
-        if (isDifferentNames(requestDto.getUserNames()) == false) {
+        if (requestDto.getUserNames().size() < 3 || requestDto.getUserNames().size() > 4) {
+           throw new IllegalArgumentException("팀 매칭을 요청한 유저의 인원이 3-4명이 아닙니다.");
+        }
+        if ( isDifferentNames(requestDto.getUserNames()) == false) {
             throw new IllegalArgumentException("동일한 이름의 유저는 같은 팀이 될 수 없습니다.");
         }
         List<Member> Members = requestDto.getUserNames().stream()
@@ -102,9 +105,9 @@ public class TeamService {
     public static boolean isDifferentNames(List<String> names) {
         for (int i = 0; i < names.size(); i++) {
             String name = names.get(i);
-            for (int j = i + 1; j < names.size(); j++) {
+            for (int j = 0; j < names.size(); j++) {
                 String target = names.get(j);
-                if (name.equals(target)) {
+                if (i != j && name.equals(target)) {
                     return false;
                 }
             }
