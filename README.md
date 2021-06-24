@@ -38,4 +38,10 @@ First of all, set `application-oauth.yaml` and `applciation-smtp.yaml` with your
     ./gradlew build
     java -Dspring.profiles.active=myprofile -jar applicaition.jar
     ```
-  
+
+## Api docs
+
+You can see swagger api docs
+
+- just curl `host:port/swagger-ui.html`
+    - json data: curl `host:port/v2/api-docs`
