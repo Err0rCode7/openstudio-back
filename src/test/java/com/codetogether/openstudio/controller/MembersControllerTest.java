@@ -2,6 +2,7 @@ package com.codetogether.openstudio.controller;
 
 import com.codetogether.openstudio.config.auth.Role;
 import com.codetogether.openstudio.config.auth.SecurityConfig;
+import com.codetogether.openstudio.controller.apis.v1.MembersController;
 import com.codetogether.openstudio.dto.member.MemberSaveRequestDto;
 import com.codetogether.openstudio.dto.member.MemberUpdateRequestDto;
 import com.codetogether.openstudio.repository.MemberRepository;
