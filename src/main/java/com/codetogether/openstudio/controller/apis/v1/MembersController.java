@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 @Api(tags = {"Member API"})
 @RequiredArgsConstructor
@@ -24,7 +25,9 @@ public class MembersController {
 
     @ApiOperation(value = "자신의 정보 확인", notes = "세션 값을 통해 자신의 정보를 확인하는 API입니다.")
     @GetMapping("me")
-    public MemberResponseDto getMember(@LoginUser SessionUser user) {
+    public MemberResponseDto getMember(
+            @ApiIgnore
+            @LoginUser SessionUser user) {
         if (user == null) {
             throw new NoSuchSessionUserException("존재하지 않는 세션의 유저입니다.");
         }

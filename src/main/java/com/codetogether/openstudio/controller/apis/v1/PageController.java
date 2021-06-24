@@ -14,6 +14,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 @Api(tags = {"Page API"})
 @RequiredArgsConstructor
@@ -25,7 +26,9 @@ public class PageController {
 
     @ApiOperation(value = "Page-1 Model 조회", notes = "Page-1의 모델을 조회하는 API입니다.")
     @GetMapping("page-1")
-    public Page1ResponseDto getPage1(@LoginUser SessionUser user) {
+    public Page1ResponseDto getPage1(
+            @ApiIgnore
+            @LoginUser SessionUser user) {
         if (user == null) {
             throw new NoSuchSessionUserException("존재하지 않는 세션의 유저입니다.");
         }
@@ -42,7 +45,9 @@ public class PageController {
     @PostMapping("page-2")
     public CommonResponseDto reserve(
             @ApiParam(name = "예약 요청 정보", value = "Subject 이름, 유저 id", required = true)
-            @RequestBody Page2ReservationRequestDto requestDto, @LoginUser SessionUser user) {
+            @RequestBody Page2ReservationRequestDto requestDto,
+            @ApiIgnore
+            @LoginUser SessionUser user) {
         if (user == null) {
             throw new NoSuchSessionUserException("존재하지 않는 세션의 유저입니다.");
         }
@@ -51,7 +56,9 @@ public class PageController {
 
     @ApiOperation(value = "Page-2 매칭 예약 제거", notes = "Page-2의 예약한 매칭을 제거하는 API입니다.")
     @DeleteMapping("page-2")
-    public CommonResponseDto deleteReservaiton(@LoginUser SessionUser user) {
+    public CommonResponseDto deleteReservaiton(
+            @ApiIgnore
+            @LoginUser SessionUser user) {
         if (user == null) {
             throw new NoSuchSessionUserException("존재하지 않는 세션의 유저입니다.");
         }
