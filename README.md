@@ -13,7 +13,7 @@
 
 ## Build
 
-First of all, set `application-oauth.yaml` and `applciation-smtp.yaml` with yours
+First of all, set `application-oauth.yaml` and `applciation-smtp.yaml` to yours
 
 - Quick Run
   
