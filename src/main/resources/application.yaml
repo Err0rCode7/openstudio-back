@@ -4,3 +4,6 @@ spring:
       - oauth
       - smtp
     active: dev
+
+  thymeleaf:
+    cache: false

@@ -1,12 +1,12 @@
 package com.codetogether.openstudio.controller.error;
 
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping("")
 @Controller
-public class CustomErrorController implements Err {
+public class CustomErrorController implements ErrorController {
 
     @GetMapping("/denied-page")
     public String deniedPage() {
@@ -15,6 +15,11 @@ public class CustomErrorController implements Err {
 
     @GetMapping("/error")
     public String notFoundPage() {
-        return "not-found";
+        return "error/404";
+    }
+
+    @Override
+    public String getErrorPath() {
+        return null;
     }
 }
