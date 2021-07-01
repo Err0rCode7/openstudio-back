@@ -1,5 +1,6 @@
 package com.codetogether.openstudio.exception.advice;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -7,7 +8,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@Component
 public class MyDefaultHandlerExceptionResolver implements HandlerExceptionResolver {
 
     @Override

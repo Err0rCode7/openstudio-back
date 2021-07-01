@@ -15,7 +15,7 @@ import java.util.List;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
     private final LoginUserArgumentResolver loginUserArgumentResolver;
-    private final MyDefaultHandlerExceptionResolver myDefaultHandlerExceptionResolver;
+//    private final MyDefaultHandlerExceptionResolver myDefaultHandlerExceptionResolver;
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolverList) {
@@ -26,6 +26,10 @@ public class WebConfig implements WebMvcConfigurer {
     public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
         HandlerExceptionResolver handlerExceptionResolver = resolvers.stream().filter(ex -> ex instanceof DefaultHandlerExceptionResolver)
                 .findAny().get();
+
+        // 빈을 등록해서 사용하려고 했으나 Component Scan이 안됐음
+        // 왜 그럴까?
+        MyDefaultHandlerExceptionResolver myDefaultHandlerExceptionResolver = new MyDefaultHandlerExceptionResolver();
         int index = resolvers.indexOf(handlerExceptionResolver);
         resolvers.add(index, myDefaultHandlerExceptionResolver);
         WebMvcConfigurer.super.extendHandlerExceptionResolvers(resolvers);

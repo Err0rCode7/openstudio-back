@@ -61,7 +61,7 @@ public class MembersControllerTest {
         // then
         // 200을 반환해야한다..
         MockHttpServletResponse response = mockMvc.perform(
-                post("/api/v1/members")
+                post("/api/v1/members/")
                     .with(csrf())
                         // 이렇게 csrf 토큰을 넣어주거나 @AutoConfigureMockMvc(addFilters = false)를 사용하여 필터제거
                         .content(objectMapper.writeValueAsString(requestDto))
