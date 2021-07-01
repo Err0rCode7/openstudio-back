@@ -3,7 +3,100 @@ spring:
     include:
       - oauth
       - smtp
-    active: dev
+    active: local
 
   thymeleaf:
     cache: false
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  web:
+    resources:
+      cache:
+        period: 0
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        user_sql_comments: true
+  datasource:
+    url: jdbc:h2:mem:testdb
+    #    jdbc:h2:tcp://localhost/~/test
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+  session:
+    store-type: jdbc
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+        type:
+          descriptor:
+            sql: trace
+
+server:
+  servlet:
+    session:
+      cookie:
+        http-only: false
+
+openstudio:
+  survey: http://구글폼주소
+  cadetcount: 900
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  web:
+    resources:
+      cache:
+        period: 0
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        user_sql_comments: true
+    generate-ddl: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/openstudio?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+        type:
+          descriptor:
+            sql: trace
+
+server:
+  servlet:
+    session:
+      cookie:
+        http-only: false
+
+openstudio:
+  survey: http://구글폼주소
+  cadetcount: 900
+
