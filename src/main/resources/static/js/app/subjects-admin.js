@@ -19,7 +19,7 @@ var main = {
 
         $.ajax({
             type: 'POST',
-            url: '/api/v1/subjects',
+            url: '/api/v1/subjects/',
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)

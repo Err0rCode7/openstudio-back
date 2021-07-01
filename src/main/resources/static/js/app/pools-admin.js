@@ -23,7 +23,7 @@ var main = {
 
         $.ajax({
             type: 'POST',
-            url: '/api/v1/pools',
+            url: '/api/v1/pools/',
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)

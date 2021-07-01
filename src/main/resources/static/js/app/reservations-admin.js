@@ -18,7 +18,7 @@ var main = {
 
         $.ajax({
             type: 'POST',
-            url: '/api/v1/reservations',
+            url: '/api/v1/reservations/',
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
