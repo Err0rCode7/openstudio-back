@@ -1,6 +1,5 @@
 package com.codetogether.openstudio.aop;
 
-import lombok.Getter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;

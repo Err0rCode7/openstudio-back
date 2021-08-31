@@ -1,6 +1,5 @@
 package com.codetogether.openstudio.exception.advice;
 
-import com.codetogether.openstudio.dto.CommonResponseDto;
 import com.codetogether.openstudio.dto.ErrorResponseDto;
 import com.codetogether.openstudio.exception.NoSuchSessionUserException;
 import org.springframework.http.HttpStatus;

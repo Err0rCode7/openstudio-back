@@ -1,8 +1,6 @@
 package com.codetogether.openstudio.service;
 
-import com.codetogether.openstudio.domain.Member;
 import com.codetogether.openstudio.domain.Subject;
-import com.codetogether.openstudio.dto.member.MemberListResponseDto;
 import com.codetogether.openstudio.dto.subject.SubjectListResponseDto;
 import com.codetogether.openstudio.dto.subject.SubjectResponseDto;
 import com.codetogether.openstudio.dto.subject.SubjectSaveRequestDto;

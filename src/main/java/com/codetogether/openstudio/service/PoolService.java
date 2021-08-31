@@ -1,11 +1,7 @@
 package com.codetogether.openstudio.service;
 
-import com.codetogether.openstudio.domain.Member;
 import com.codetogether.openstudio.domain.Pool;
-import com.codetogether.openstudio.domain.Subject;
-import com.codetogether.openstudio.dto.member.MemberListResponseDto;
 import com.codetogether.openstudio.dto.pool.PoolListResponseDto;
-import com.codetogether.openstudio.dto.pool.PoolResponseDto;
 import com.codetogether.openstudio.dto.pool.PoolSaveRequestDto;
 import com.codetogether.openstudio.repository.PoolRepository;
 import lombok.RequiredArgsConstructor;

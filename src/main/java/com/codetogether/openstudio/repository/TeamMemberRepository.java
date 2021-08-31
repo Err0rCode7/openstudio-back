@@ -1,15 +1,11 @@
 package com.codetogether.openstudio.repository;
 
-import com.codetogether.openstudio.domain.Member;
-import com.codetogether.openstudio.domain.Team;
 import com.codetogether.openstudio.domain.TeamMember;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.security.core.parameters.P;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface TeamMemberRepository extends JpaRepository<TeamMember, Long> {
     @Query("SELECT tm FROM TeamMember tm " +

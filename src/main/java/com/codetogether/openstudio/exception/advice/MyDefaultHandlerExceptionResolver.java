@@ -1,7 +1,5 @@
 package com.codetogether.openstudio.exception.advice;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 

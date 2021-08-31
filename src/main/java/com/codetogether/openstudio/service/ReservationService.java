@@ -3,10 +3,8 @@ package com.codetogether.openstudio.service;
 import com.codetogether.openstudio.domain.Member;
 import com.codetogether.openstudio.domain.Pool;
 import com.codetogether.openstudio.domain.Reservation;
-import com.codetogether.openstudio.dto.pool.PoolListResponseDto;
 import com.codetogether.openstudio.dto.reservation.ReservationListResponseDto;
 import com.codetogether.openstudio.dto.reservation.ReservationRequestDto;
-import com.codetogether.openstudio.dto.reservation.ReservationResponseDto;
 import com.codetogether.openstudio.repository.MemberRepository;
 import com.codetogether.openstudio.repository.PoolRepository;
 import com.codetogether.openstudio.repository.ReservationRepository;
@@ -19,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor

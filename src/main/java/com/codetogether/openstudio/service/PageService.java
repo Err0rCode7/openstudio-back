@@ -8,8 +8,6 @@ import com.codetogether.openstudio.dto.page.*;
 import com.codetogether.openstudio.properties.CadetProperty;
 import com.codetogether.openstudio.repository.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

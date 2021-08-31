@@ -2,8 +2,6 @@ package com.codetogether.openstudio.util;
 
 import com.codetogether.openstudio.domain.Pool;
 import com.codetogether.openstudio.domain.Subject;
-import com.codetogether.openstudio.dto.pool.PoolListResponseDto;
-import com.codetogether.openstudio.dto.pool.PoolSaveRequestDto;
 import com.codetogether.openstudio.repository.PoolRepository;
 import com.codetogether.openstudio.repository.SubjectRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

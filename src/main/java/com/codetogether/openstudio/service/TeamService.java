@@ -2,9 +2,7 @@ package com.codetogether.openstudio.service;
 
 import com.codetogether.openstudio.domain.Member;
 import com.codetogether.openstudio.domain.Pool;
-import com.codetogether.openstudio.domain.Reservation;
 import com.codetogether.openstudio.domain.Team;
-import com.codetogether.openstudio.dto.reservation.ReservationListResponseDto;
 import com.codetogether.openstudio.dto.team.TeamListResponseDto;
 import com.codetogether.openstudio.dto.team.TeamSaveRequestDto;
 import com.codetogether.openstudio.repository.*;
