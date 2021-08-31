@@ -4,11 +4,13 @@ import com.codetogether.openstudio.util.InitService;
 import com.codetogether.openstudio.service.MailService;
 import com.codetogether.openstudio.service.TeamService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
+@Slf4j
 @RequiredArgsConstructor
 @Component
 public class ScheduleTask {
@@ -23,7 +25,7 @@ public class ScheduleTask {
      */
     @Scheduled(cron = "42 42 16 * * 1")
     public void createWeeklyPools() {
-        System.out.println("scheduledTask CreateWeeklyPools : " + LocalDateTime.now());
+        log.info("scheduledTask CreateWeeklyPools : " + LocalDateTime.now());
         initService.createWeeklyPools();
     }
 
@@ -32,7 +34,7 @@ public class ScheduleTask {
      */
     @Scheduled(cron = "0 0 16 * * 1")
     public void matchTeamFromReservation() {
-        System.out.println("scheduledTask MatchTeam : " + LocalDateTime.now());
+        log.info("scheduledTask MatchTeam : " + LocalDateTime.now());
         teamService.matchAllReservationsOfPools();
     }
 }
