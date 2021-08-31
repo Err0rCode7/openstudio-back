@@ -1,9 +1,6 @@
 package com.codetogether.openstudio.util;
 
 import com.codetogether.openstudio.domain.*;
-import com.codetogether.openstudio.service.MailService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -15,6 +12,7 @@ import java.util.stream.Stream;
 
 public class DividerUtils {
     private final int DEFAULT_DIVISION_SIZE = 3;
+    private final int DEFAULT_CLOSE_DAY_SIZE = 7;
     private final Collector<Reservation, ?, Stream<Reservation>> SHUFFLER = CollectorUtils.toShuffledStream();
     private int index = 0;
 
@@ -60,13 +58,13 @@ public class DividerUtils {
         return divideReservations(randomReservations, pool.getSubject()).stream()
                 .map(reservations -> {
                     List<Member> members = reservations.stream()
-                            .map(reservation -> {
-                                reservation.close();
-                                Member member = reservation.getMember();
-                                return member;
-                            })
-                            .collect(Collectors.toList());
-                    return new Team(pool, LocalDateTime.now().plusDays(7), members);
+                        .map(reservation -> {
+                            reservation.close();
+                            Member member = reservation.getMember();
+                            return member;
+                        })
+                        .collect(Collectors.toList());
+                    return new Team(pool, LocalDateTime.now().plusDays(DEFAULT_CLOSE_DAY_SIZE), members);
                 })
                 .collect(Collectors.toList());
     }
